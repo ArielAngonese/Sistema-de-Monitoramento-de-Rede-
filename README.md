@@ -21,4 +21,4 @@ Repositório de um projeto voltado para a área de Segurança da Informação, c
 ## 🚀 Como Executar
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/ArielAngonese/Sistema-de-Monitoramento-de-Rede-
+   git clone https://github.com/ArielAngonese/Sistema-de-Monitoramento-de-Rede-.git
