@@ -1,12 +1,25 @@
 # src/main.py
-# Projeto Integrador – Segurança da Informação
-# Estrutura inicial com menu de opções
+import subprocess
+from scapy.all import sniff, Packet
 
 def scan_ports():
-    print("\n[+] Função de varredura de portas (em desenvolvimento)\n")
+    target = input("Digite o IP ou hostname para escanear: ")
+    print(f"\n[+] Escaneando portas do host {target}...\n")
+    
+    try:
+        # Usa Nmap via subprocess
+        result = subprocess.run(['nmap', '-sT', target], capture_output=True, text=True)
+        print(result.stdout)
+    except FileNotFoundError:
+        print("[!] Nmap não encontrado. Certifique-se de que está instalado.")
 
 def analyze_packets():
-    print("\n[+] Função de análise de pacotes (em desenvolvimento)\n")
+    print("\n[+] Capturando pacotes por 10 segundos (exemplo simplificado)...\n")
+    
+    def packet_callback(packet: Packet):
+        print(packet.summary())
+    
+    sniff(prn=packet_callback, timeout=10)
 
 def show_about():
     print("""
