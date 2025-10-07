@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Monitoramento de Rede</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Monitoramento de Rede</h1>
+    <div class="dados">
+        <p>Bytes Enviados: <span id="sent">0</span></p>
+        <p>Bytes Recebidos: <span id="recv">0</span></p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
