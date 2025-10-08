@@ -2,14 +2,53 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema de Monitoramento de Rede</title>
+    <title>Dashboard - Monitoramento de Rede</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Monitoramento de Rede</h1>
-    <div class="dados">
-        <p>Bytes Enviados: <span id="sent">0</span></p>
-        <p>Bytes Recebidos: <span id="recv">0</span></p>
+    <!-- BANNER DE ALERTA -->
+    <div id="alertBanner" class="alert-banner" aria-live="polite" role="status"></div>
+
+    <h1>Sistema de Monitoramento de Rede</h1>
+
+    <!-- CONTROLES GERAIS (PAUSAR / RETOMAR / RESET) -->
+    <div class="controls">
+        <button id="btnPause" onclick="togglePause()">Pausar</button>
+        <button id="btnReset" onclick="resetCharts()">Resetar Gráficos</button>
+        <div class="thresholds">
+            <label>Limite CPU: <input id="thrCpu" type="number" min="1" max="100" value="80"></label>
+            <label>Limite Mem: <input id="thrMem" type="number" min="1" max="100" value="80"></label>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Status do Sistema</h2>
+            <canvas id="graficoCPU"></canvas>
+            <canvas id="graficoMemoria"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Tráfego de Rede (KB/s)</h2>
+            <canvas id="graficoRede"></canvas>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Varredura de Portas</h2>
+            <input type="text" id="alvo" placeholder="Ex: 192.168.0.1 ou localhost">
+            <button onclick="fazerScan()">Iniciar Scan</button>
+            <pre id="resultadoScan"></pre>
+        </div>
+
+        <div class="card">
+            <h2>Análise de Pacotes</h2>
+            <button onclick="analisarPacotes()">Capturar Pacotes (10s)</button>
+            <pre id="resultadoPacotes"></pre>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

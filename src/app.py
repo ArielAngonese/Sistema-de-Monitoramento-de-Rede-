@@ -1,21 +1,33 @@
-from flask import Flask, render_template, jsonify
-import psutil
+# src/app.py
+from flask import Flask, render_template, jsonify, request
+import scanner
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    # Abre a página principal (HTML)
     return render_template('index.html')
 
-@app.route('/dados_rede')
-def dados_rede():
-    # Coleta algumas métricas simples do sistema
-    net_io = psutil.net_io_counters()
-    return jsonify({
-        'bytes_enviados': net_io.bytes_sent,
-        'bytes_recebidos': net_io.bytes_recv
-    })
+@app.route('/dados_sistema')
+def dados_sistema():
+    dados = scanner.get_system_usage()
+    return jsonify(dados)
+
+@app.route('/scan')
+def scan():
+    alvo = request.args.get('alvo', 'localhost')
+    resultado = scanner.scan_ports(alvo)
+    return jsonify(resultado)
+
+@app.route('/pacotes')
+def pacotes():
+    pacotes = scanner.analyze_packets()
+    return jsonify({"pacotes": pacotes})
+
+@app.route('/sobre')
+def sobre():
+    info = scanner.show_about()
+    return jsonify(info)
 
 if __name__ == '__main__':
     app.run(debug=True)
