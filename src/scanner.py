@@ -1,4 +1,3 @@
-# src/scanner.py
 import subprocess
 from scapy.all import sniff, Packet
 import psutil

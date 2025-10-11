@@ -1,4 +1,3 @@
-# src/app.py
 from flask import Flask, render_template, jsonify, request
 import scanner
 

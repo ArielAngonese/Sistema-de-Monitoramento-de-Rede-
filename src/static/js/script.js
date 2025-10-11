@@ -1,23 +1,19 @@
-/* =========================
-   Configurações e constantes
-   ========================= */
-const UPDATE_INTERVAL_MS = 2000;        // intervalo padrão (2s)
-let updateIntervalId = null;           // id do setInterval
-let paused = false;                    // estado pausado
+//Configurações e constantes
+const UPDATE_INTERVAL_MS = 2000;       // Intervalo padrão (2s)
+let updateIntervalId = null;           // Id do setInterval
+let paused = false;                    // Estado pausado
 let prevBytesSent = null;              // leitura anterior (bytes enviados)
 let prevBytesRecv = null;              // leitura anterior (bytes recebidos)
 
-/* Thresholds (padrão) — podem ser alterados via input na UI */
+// Thresholds (padrão)
 let THRESHOLD_CPU = parseInt(document?.getElementById?.('thrCpu')?.value || 80);
 let THRESHOLD_MEM = parseInt(document?.getElementById?.('thrMem')?.value || 80);
 
-/* Armazena cores padrão para restaurar depois do alerta */
+// Armazena as cores padrões para restaurar depois do alerta 
 const defaultCpuColor = '#00bfff';
 const defaultMemColor = '#00ff88';
 
-/* =========================
-   Inicialização dos gráficos
-   ========================= */
+// Inicialização dos gráficos
 const cpuChart = new Chart(document.getElementById('graficoCPU'), {
     type: 'line',
     data: { labels: [], datasets: [{ label: 'Uso de CPU (%)', data: [], borderColor: defaultCpuColor, tension: 0.3 }] },
@@ -39,17 +35,15 @@ const netChart = new Chart(document.getElementById('graficoRede'), {
     options: { responsive: true, scales: { y: { beginAtZero: true } } }
 });
 
-/* =========================
-   Funções de controle (pause / resume / reset)
-   ========================= */
+// Funções de controle (pause / resume / reset)
 function startUpdating() {
-    // garante que não duplique intervalos
-    if (updateIntervalId) return;
-    // atualiza thresholds a partir dos inputs (caso usuário altere)
-    THRESHOLD_CPU = parseInt(document.getElementById('thrCpu').value) || THRESHOLD_CPU;
+    
+    if (updateIntervalId) return;// garante que não duplique intervalos
+   
+    THRESHOLD_CPU = parseInt(document.getElementById('thrCpu').value) || THRESHOLD_CPU; // atualiza thresholds a partir dos inputs (caso usuário altere)
     THRESHOLD_MEM = parseInt(document.getElementById('thrMem').value) || THRESHOLD_MEM;
 
-    // chamada imediata para não esperar o primeiro intervalo
+    // Chamada imediata para não esperar o primeiro intervalo
     atualizarDados();
     updateIntervalId = setInterval(atualizarDados, UPDATE_INTERVAL_MS);
     paused = false;
@@ -70,23 +64,22 @@ function togglePause() {
 }
 
 function resetCharts() {
-    // limpa labels e dados de cada gráfico
+    // Limpa labels e dados de cada gráfico
     [cpuChart, memChart, netChart].forEach(chart => {
         chart.data.labels = [];
         chart.data.datasets.forEach(ds => ds.data = []);
         chart.update();
     });
 
-    // reseta contadores de bytes anteriores
+    // Reseta contadores de bytes anteriores
     prevBytesSent = null;
     prevBytesRecv = null;
 
     hideBanner();
 }
 
-/* =========================
-   Banner de alerta
-   ========================= */
+// Banner de alerta
+
 function showBanner(message, level='warn') {
     const el = document.getElementById('alertBanner');
     el.textContent = message;
@@ -99,9 +92,7 @@ function hideBanner() {
     el.className = 'alert-banner';
 }
 
-/* =========================
-   CÁLCULO E ATUALIZAÇÃO DOS DADOS
-   ========================= */
+// CÁLCULO E ATUALIZAÇÃO DOS DADOS
 async function atualizarDados() {
     try {
         const resp = await fetch('/dados_sistema');
@@ -109,10 +100,8 @@ async function atualizarDados() {
         const dados = await resp.json();
 
         const now = new Date().toLocaleTimeString();
-
-        // ---------------------------
+        
         // CPU e Memória (simples)
-        // ---------------------------
         cpuChart.data.labels.push(now);
         cpuChart.data.datasets[0].data.push(dados.cpu);
 
@@ -122,16 +111,14 @@ async function atualizarDados() {
         // Atualiza cores e banner de alerta conforme thresholds
         handleAlerts(dados);
 
-        // ---------------------------
         // Rede: converte contador cumulativo em taxa (KB/s)
-        // psutil/net_io_counters retorna contadores cumulativos (bytes totais).
-        // Calculamos a diferença entre leituras consecutivas e dividimos pelo tempo (s).
-        // ---------------------------
+        // psutil/net_io_counters retorna os bytes totais
+        // Calculama a diferença entre leituras consecutivas e divide pelo tempo
         const sent = Number(dados.bytes_enviados);
         const recv = Number(dados.bytes_recebidos);
 
         if (prevBytesSent === null) {
-            // primeira leitura: mostra 0 KB/s para evitar picos artificiais
+            // Primeira leitura: sempre mostra 0 KB/s
             netChart.data.labels.push(now);
             netChart.data.datasets[0].data.push(0);
             netChart.data.datasets[1].data.push(0);
@@ -150,9 +137,9 @@ async function atualizarDados() {
         prevBytesSent = sent;
         prevBytesRecv = recv;
 
-        // Mantém somente últimos 12 pontos para visualização
+        // Mantém somente últimos 10 pontos para visualização
         [cpuChart, memChart, netChart].forEach(chart => {
-            if (chart.data.labels.length > 12) {
+            if (chart.data.labels.length > 10) {
                 chart.data.labels.shift();
                 chart.data.datasets.forEach(ds => ds.data.shift());
             }
@@ -165,9 +152,10 @@ async function atualizarDados() {
     }
 }
 
-// ALERTAS: muda cor do gráfico + banner
+// ALERTAS (muda cor do gráfico e do banner)
 function handleAlerts(dados) {
-    // atualiza thresholds a partir dos inputs em tempo real
+
+    // Atualiza thresholds a partir dos inputs em tempo real
     THRESHOLD_CPU = parseInt(document.getElementById('thrCpu').value) || THRESHOLD_CPU;
     THRESHOLD_MEM = parseInt(document.getElementById('thrMem').value) || THRESHOLD_MEM;
 
@@ -180,7 +168,7 @@ function handleAlerts(dados) {
         showBanner(`ALERTA: CPU alta — ${cpu}% (limite ${THRESHOLD_CPU}%)`, 'crit');
     } else {
         cpuChart.data.datasets[0].borderColor = defaultCpuColor;
-        // Se memória também estiver em critério, mantemos banner; caso contrário, escondemos
+        // Se memória também estiver acima do limite, mantemem o banner, caso contrário, esconde o banner
         if (mem < THRESHOLD_MEM) hideBanner();
     }
 
@@ -194,7 +182,7 @@ function handleAlerts(dados) {
     }
 }
 
-//VARREDURA E PACOTES 
+// Varreduras e Pacotes
 async function fazerScan() {
     const alvo = document.getElementById('alvo').value || 'localhost';
     const resultadoElem = document.getElementById('resultadoScan');
@@ -222,5 +210,5 @@ async function analisarPacotes() {
     }
 }
 
-//Inicializa atualização automática ao carregar o script
+// Inicializa atualização automática ao carregar o script
 startUpdating();

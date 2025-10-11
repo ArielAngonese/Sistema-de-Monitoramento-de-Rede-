@@ -87,8 +87,7 @@ canvas {
     margin-top: 10px;
 }
 
-/* --- FORMULÁRIOS E RESULTADOS --- */
-button { /* regra global para botão (também usada nos cards) */
+button {
     font-family: inherit;
 }
 input[type="text"] {
