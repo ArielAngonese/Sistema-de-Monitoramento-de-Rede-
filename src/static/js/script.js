@@ -152,7 +152,7 @@ async function atualizarDados() {
     }
 }
 
-// ALERTAS (muda cor do gráfico e do banner)
+// Alertas (muda cor do gráfico e do banner)
 function handleAlerts(dados) {
 
     // Atualiza thresholds a partir dos inputs em tempo real

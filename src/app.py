@@ -28,5 +28,10 @@ def sobre():
     info = scanner.show_about()
     return jsonify(info)
 
+@app.route("/doors")
+def portas():
+    return render_template("doors.html")
+
+
 if __name__ == '__main__':
     app.run(debug=True)
