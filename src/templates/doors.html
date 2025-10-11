@@ -7,5 +7,59 @@
    
     <h1>Portas e Protocolos</h1>
 
+    <div class="card">
+    <h2>Funcionamento de Endereços IP, Portas e Protocolos de Transporte</h2>
+    <p>
+        Um endereço IP (Internet Protocol) é o identificador numérico utilizado para enviar e receber dados entre dispositivos conectados 
+        a uma rede. Ele funciona como um endereço exclusivo que permite a comunicação entre computadores. Cada endereço IP pode ser acompanhado 
+        por um número de porta, um valor inteiro de 16 bits separado por dois pontos, por exemplo, 17.253.207.54:443. Esse número identifica 
+        o serviço ou processo específico que deve receber os dados dentro de um mesmo dispositivo.
+    </p>
+    <p>
+        Os números de porta são fundamentais para o funcionamento da Internet, pois direcionam o tráfego de rede para o serviço correto assim 
+        que os pacotes chegam ao servidor. A responsabilidade de gerenciar esse roteamento é dos protocolos de transporte, principalmente o 
+        TCP (Transmission Control Protocol) e o UDP (User Datagram Protocol), que determinam como o pacote de dados será entregue ao destino 
+        apropriado
+    </p>
+
+
+    <h3>Tipos de Portas</h3>
+    <p>
+        Portas virtuais: São os pontos de conexão que permitem que vários serviços, como navegação na web, e-mail e streaming, funcionem 
+        simultaneamente no mesmo computador. Cada serviço tem uma porta associada a ele. 
+    </p>
+        <p>
+        Portas físicas: São as conexões de hardware encontradas em dispositivos como roteadores e modems, que permitem a conexão física 
+        de cabos de rede a outros dispositivos.  
+    </p>
+
+    <h3>Principais portas e suas utilidades:</h3>
+    <table class="table-ports">
+        <tr><th>Porta</th><th>Protocolo</th><th>Uso Comum</th></tr>
+        <tr><td>20 / 21</td><td>FTP</td><td>Transferência de arquivos</td></tr>
+        <tr><td>22</td><td>SSH</td><td>Acesso remoto seguro</td></tr>
+        <tr><td>25</td><td>SMTP</td><td>Envio de e-mails</td></tr>
+        <tr><td>53</td><td>DNS</td><td>Resolução de nomes de domínio</td></tr>
+        <tr><td>80</td><td>HTTP</td><td>Tráfego web não criptografado</td></tr>
+        <tr><td>443</td><td>HTTPS</td><td>Tráfego web seguro</td></tr>
+    </table>
+
+    <p>
+        Essas portas são chamadas de <strong>“bem conhecidas”</strong> (0–1023), pois representam protocolos
+        padronizados. Existem também as <em>portas registradas</em> (1024–49151) e as <em>portas dinâmicas</em> (49152–65535),
+        usadas por aplicações temporárias.
+    </p>
+
+    <hr>
+
+    <h3>Experimente:</h3>
+    <p>Digite um IP ou nome de host e veja quais portas estão abertas nesse sistema:</p>
+    <input type="text" id="targetHost" placeholder="Ex: localhost ou 192.168.0.1">
+    <button onclick="runPortScan()">Executar varredura</button>
+
+    <pre id="scanOutput"></pre>
+</div>
+
+
 </body>
 </html>
