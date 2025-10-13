@@ -1,69 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Doors — Portas e Protocolos</title>
+  <link rel="stylesheet" href="/static/css/doors.css">
 </head>
 
 <body>
-   
+  <header>
     <h1>Portas e Protocolos</h1>
+  </header>
 
-    <div class="card">
-    <h2>Funcionamento de Endereços IP, Portas e Protocolos de Transporte</h2>
-    <p>
-        Um endereço IP (Internet Protocol) é o identificador numérico utilizado para enviar e receber dados entre dispositivos conectados 
-        a uma rede. Ele funciona como um endereço exclusivo que permite a comunicação entre computadores. Cada endereço IP pode ser acompanhado 
-        por um número de porta, um valor inteiro de 16 bits separado por dois pontos, por exemplo, 17.253.207.54:443. Esse número identifica 
-        o serviço ou processo específico que deve receber os dados dentro de um mesmo dispositivo.
-    </p>
-    <p>
-        Os números de porta são fundamentais para o funcionamento da Internet, pois direcionam o tráfego de rede para o serviço correto assim 
-        que os pacotes chegam ao servidor. A responsabilidade de gerenciar esse roteamento é dos protocolos de transporte, principalmente o 
-        TCP (Transmission Control Protocol) e o UDP (User Datagram Protocol), que determinam como o pacote de dados será entregue ao destino 
-        apropriado
-    </p>
+  <main class="content">
+    <!-- Seção 1: IP e Portas -->
+    <section class="section">
+      <h2>Funcionamento de Endereços IP, Portas e Protocolos de Transporte</h2>
+      <p>
+        Um endereço IP (Internet Protocol) é o identificador numérico utilizado para enviar e receber dados entre dispositivos 
+        conectados a uma rede. Ele funciona como um endereço exclusivo que permite a comunicação entre computadores. Cada endereço IP 
+        pode ser acompanhado por um número de porta, um valor inteiro de 16 bits separado por dois pontos, por exemplo, 
+        17.253.207.54:443. Esse número identifica o serviço ou processo específico que deve receber os dados dentro de um mesmo dispositivo.
+      </p>
+      <p>
+        Os números de porta são fundamentais para o funcionamento da Internet, pois direcionam o tráfego de rede para o serviço correto 
+        assim que os pacotes chegam ao servidor. A responsabilidade de gerenciar esse roteamento é dos protocolos de transporte, principalmente 
+        o TCP (Transmission Control Protocol) e o UDP (User Datagram Protocol), que determinam como o pacote de dados será entregue ao 
+        destino apropriado.
+      </p>
+    </section>
 
-    <h3>Como as Portas FUncionam?</h3>
-    <p>
+    <!-- Seção 2: Como as Portas Funcionam -->
+    <section class="section">
+      <h2>Como as Portas Funcionam?</h2>
+      <p>
         O conceito de portas surgiu ainda na ARPANET (Advanced Research Projects Agency Network), precursora da Internet moderna, e tem como 
         objetivo identificar pontos finais de conexão e direcionar os dados para os serviços correspondentes. Existem dois tipos principais:
-    </p>
-    <p>
-        Portas físicas: São as conexões de hardware encontradas em dispositivos como roteadores e modems, que permitem a conexão física 
-        de cabos de rede a outros dispositivos. 
-    </p>
-    <p>
-        Portas virtuais: São os pontos de conexão que permitem que vários serviços, como navegação na web, e-mail e streaming, funcionem 
-        simultaneamente no mesmo computador. Cada serviço tem uma porta associada a ele.
-    </p>
-    <p> </p>
+      </p>
+      <p><strong>Portas físicas:</strong> conexões de hardware em roteadores e modems.</p>
+      <p><strong>Portas virtuais:</strong> pontos de conexão lógicos que permitem vários serviços em um mesmo host.</p>
+      <p>Essas portas virtuais pertencem à Camada 4 (Transporte) do modelo OSI e são usadas para garantir que os dados cheguem ao aplicativo 
+        correto.</p>
+    </section>
 
-    <h3>Principais portas e suas utilidades:</h3>
-    <table class="table-ports">
-        <tr><th>Porta</th><th>Protocolo</th><th>Uso Comum</th></tr>
-        <tr><td>20 / 21</td><td>FTP</td><td>Transferência de arquivos</td></tr>
-        <tr><td>22</td><td>SSH</td><td>Acesso remoto seguro</td></tr>
-        <tr><td>25</td><td>SMTP</td><td>Envio de e-mails</td></tr>
-        <tr><td>53</td><td>DNS</td><td>Resolução de nomes de domínio</td></tr>
-        <tr><td>80</td><td>HTTP</td><td>Tráfego web não criptografado</td></tr>
-        <tr><td>443</td><td>HTTPS</td><td>Tráfego web seguro</td></tr>
-    </table>
+    <!-- Seção 3: Papel do Host -->
+    <section class="section">
+      <h2>O Papel do Host</h2>
+      <p>
+        Um host é qualquer dispositivo que participa da comunicação em rede, como servidores, computadores ou roteadores, e que executa 
+        diversos processos e serviços simultaneamente. Cada host mantém uma tabela que mapeia os números de porta para os respectivos processos.
+      </p>
+    </section>
 
-    <p>
-        Essas portas são chamadas de <strong>“bem conhecidas”</strong> (0–1023), pois representam protocolos
-        padronizados. Existem também as <em>portas registradas</em> (1024–49151) e as <em>portas dinâmicas</em> (49152–65535),
-        usadas por aplicações temporárias.
-    </p>
+    <!-- Seção 4: Protocolos TCP e UDP -->
+    <section class="section">
+      <h2>Protocolos TCP e UDP</h2>
+      <p>
+        O Protocolo de Controle de Transmissão, mais conhecido como TCP (Transmission Control Protocol), é um protocolo orientado à 
+        conexão, o que significa que ele estabelece um canal confiável entre dois dispositivos antes de iniciar a troca de dados. 
+        Essa conexão garante que os pacotes enviados cheguem corretamente ao destino, na ordem correta, e que qualquer dado perdido 
+        seja retransmitido. O TCP é fundamental em aplicações onde a integridade da informação é crucial, como no envio de e-mails, 
+        transferência de arquivos e navegação web, pois implementa mecanismos de verificação, controle de fluxo e gerenciamento de 
+        congestionamento. Além disso, ele segmenta os dados em pacotes e reagrupa no destino, permitindo uma comunicação robusta e 
+        confiável, mesmo em redes com falhas temporárias ou instabilidade, oferecendo ao usuário final uma experiência de transmissão 
+        segura e consistente
+      </p>
+      <p>
+        O User Datagram Protocol, ou UDP, diferencia-se do TCP por ser um protocolo sem conexão, priorizando a velocidade em vez da 
+        confiabilidade completa. Ele envia pacotes de dados — chamados datagramas — de forma direta, sem estabelecer um canal persistente 
+        ou garantir a entrega correta de cada pacote. Essa característica torna o UDP ideal para aplicações em tempo real, como streaming de 
+        vídeo e áudio, jogos online e videoconferências, nas quais a rapidez de transmissão é mais importante do que a perfeita integridade 
+        dos dados. Apesar de não oferecer mecanismos de correção de erros ou reordenação de pacotes, o UDP reduz a sobrecarga da rede e 
+        minimiza a latência, permitindo uma comunicação ágil e eficiente, especialmente em ambientes onde pequenas perdas de informação não 
+        comprometem significativamente a experiência do usuário.
+      </p>
+    </section>
 
-    <hr>
+    <!-- Seção 5: Portas e Exemplos -->
+    <section class="section">
+      <h2>Classificação e Exemplos de Portas</h2>
+      <ul>
+        <li><strong>Portas bem conhecidas (0–1023)</strong></li>
+        <li><strong>Portas registradas (1024–49151)</strong></li>
+        <li><strong>Portas dinâmicas/efêmeras (49152–65535)</strong></li>
+      </ul>
 
-    <h3>Experimente:</h3>
-    <p>Digite um IP ou nome de host e veja quais portas estão abertas nesse sistema:</p>
-    <input type="text" id="targetHost" placeholder="Ex: localhost ou 192.168.0.1">
-    <button onclick="runPortScan()">Executar varredura</button>
+      <h3>Principais portas e suas utilidades:</h3>
+      <table class="table-ports" role="table">
+        <thead>
+          <tr><th scope="col">Porta</th><th scope="col">Protocolo</th><th scope="col">Uso Comum</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>20 / 21</td><td>FTP</td><td>Transferência de arquivos</td></tr>
+          <tr><td>22</td><td>SSH</td><td>Acesso remoto seguro</td></tr>
+          <tr><td>25</td><td>SMTP</td><td>Envio de e-mails</td></tr>
+          <tr><td>53</td><td>DNS</td><td>Resolução de nomes de domínio</td></tr>
+          <tr><td>80</td><td>HTTP</td><td>Tráfego web não criptografado</td></tr>
+          <tr><td>443</td><td>HTTPS</td><td>Tráfego web seguro</td></tr>
+        </tbody>
+      </table>
+    </section>
 
-    <pre id="scanOutput"></pre>
-</div>
+    <!-- Seção 6: Experimente -->
+<section class="section">
+  <h2>Experimente</h2>
+  <form id="scanForm" onsubmit="event.preventDefault(); runPortScan();">
+    <label for="targetHost">Digite um IP ou nome de host e veja quais portas estão abertas nesse sistema:</label>
+    <input type="text" id="targetHost" name="targetHost" placeholder="Ex: localhost ou 192.168.0.1" required pattern="^[a-zA-Z0-9\.\-:]+$">
+    <button type="submit">Executar varredura</button>
+  </form>
+  <pre id="scanOutput" aria-live="polite"></pre>
+</section>
 
+  </main>
 
+  <footer>
+    <p>Projeto Integrador II — Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+  </footer>
 </body>
 </html>

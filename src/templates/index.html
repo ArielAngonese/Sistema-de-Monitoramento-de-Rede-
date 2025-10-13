@@ -11,11 +11,12 @@
     <!-- Banner de Alerta -->
     <div id="alertBanner" class="alert-banner" aria-live="polite" role="status"></div>
 
-    <h1>Sistema de Monitoramento de Rede</h1>
+    <header>
+        <h1>Sistema de Monitoramento de Rede</h1>
+        <a href="/doors" class="menu-link">Aprenda: Portas e Protocolos</a>
+    </header>
 
-    <a href="/doors" class="menu-link">Aprenda: Portas e Protocolos</a>
-
-    <!-- Controles Gerais (Pausar / Retomar / Reset) -->
+    <!-- Controles Gerais -->
     <div class="controls">
         <button id="btnPause" onclick="togglePause()">Pausar</button>
         <button id="btnReset" onclick="resetCharts()">Resetar Gráficos</button>
@@ -25,6 +26,7 @@
         </div>
     </div>
 
+    <!-- Bloco de Gráficos -->
     <div class="container">
         <div class="card">
             <h2>Status do Sistema</h2>
@@ -38,6 +40,7 @@
         </div>
     </div>
 
+    <!-- Bloco de Ferramentas -->
     <div class="container">
         <div class="card">
             <h2>Varredura de Portas</h2>
@@ -52,6 +55,10 @@
             <pre id="resultadoPacotes"></pre>
         </div>
     </div>
+
+    <footer>
+        <p>Projeto Integrador II - Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+    </footer>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>

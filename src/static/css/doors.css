@@ -1,0 +1,150 @@
+/* Base */
+body {
+    background-color: #0f1115;
+    color: #e2e2e2;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 30px;
+}
+
+h1 {
+    color: #00bfff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #00bfff;
+    margin-bottom: 12px;
+}
+
+h3 {
+    color: #00dfff;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+h4 {
+    color: #00dfff;
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+/* Conteúdo central */
+.content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.section {
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: #1b1f25;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Parágrafos e listas */
+p, li {
+    margin-bottom: 10px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+/* Tabela de portas */
+.table-ports {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.table-ports th, .table-ports td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+}
+
+.table-ports th {
+    background-color: #1b1f25;
+    color: #00bfff;
+}
+
+.table-ports tr:nth-child(even) {
+    background-color: #16191f;
+}
+
+/* Formulário */
+#scanForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#scanForm input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: #0c0e12;
+    color: #e2e2e2;
+    box-sizing: border-box;
+}
+
+#scanForm button {
+    background-color: #00bfff;
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#scanForm button:hover {
+    background-color: #0095c9;
+}
+
+#scanForm small {
+    color: #aaa;
+}
+
+/* Pre para saída da varredura */
+pre {
+    text-align: left;
+    background-color: #0c0e12;
+    color: #d0d0d0;
+    padding: 10px;
+    border-radius: 8px;
+    height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 13px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .content {
+        padding: 0 10px;
+    }
+    .section {
+        padding: 15px;
+    }
+}
+
+p {
+    text-indent: 2em;
+    margin-top: 1em;
+}
+
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #aaa;
+}
