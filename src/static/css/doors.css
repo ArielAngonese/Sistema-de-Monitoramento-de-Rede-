@@ -1,4 +1,6 @@
-/* Base */
+/* ===========================
+   Base
+=========================== */
 body {
     background-color: #0f1115;
     color: #e2e2e2;
@@ -6,6 +8,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 30px;
+    margin-left: 220px; /* espaçamento lateral fixo da sidebar */
 }
 
 h1 {
@@ -31,7 +34,9 @@ h4 {
     margin-bottom: 6px;
 }
 
-/* Conteúdo central */
+/* ===========================
+   Conteúdo Central
+=========================== */
 .content {
     max-width: 900px;
     margin: 0 auto;
@@ -46,7 +51,9 @@ h4 {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-/* Parágrafos e listas */
+/* ===========================
+   Parágrafos e Listas
+=========================== */
 p, li {
     margin-bottom: 10px;
 }
@@ -55,7 +62,9 @@ ul {
     padding-left: 20px;
 }
 
-/* Tabela de portas */
+/* ===========================
+   Tabela de Portas
+=========================== */
 .table-ports {
     width: 100%;
     border-collapse: collapse;
@@ -77,7 +86,9 @@ ul {
     background-color: #16191f;
 }
 
-/* Formulário */
+/* ===========================
+   Formulário
+=========================== */
 #scanForm {
     display: flex;
     flex-direction: column;
@@ -103,17 +114,21 @@ ul {
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 #scanForm button:hover {
     background-color: #0095c9;
+    transform: scale(1.05);
 }
 
 #scanForm small {
     color: #aaa;
 }
 
-/* Pre para saída da varredura */
+/* ===========================
+   Saída de Texto (pre)
+=========================== */
 pre {
     text-align: left;
     background-color: #0c0e12;
@@ -127,24 +142,207 @@ pre {
     font-size: 13px;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .content {
-        padding: 0 10px;
+/* ===========================
+   Barra lateral de navegação
+=========================== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background-color: #1b1f25;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar h2 {
+    color: #00bfff;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.sidebar a {
+    color: #e2e2e2;
+    text-decoration: none;
+    margin: 8px 0;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    width: 80%;
+    text-align: center;
+    background-color: #0f1115;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #00bfff;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Ajuste do conteúdo principal (para não ficar sob a sidebar) */
+body {
+    margin-left: 220px;
+}
+
+/* ===========================
+   Botões de ação inferiores
+=========================== */
+.card button {
+    background-color: #00bfff;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.card button:hover {
+    background-color: #0095c9;
+    transform: scale(1.05);
+}
+
+/* Inputs de texto dentro dos cards */
+.card input[type="text"] {
+    width: 90%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: #0c0e12;
+    color: #e2e2e2;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+/* Ajustes de responsividade */
+@media (max-width: 900px) {
+    .sidebar {
+        width: 160px;
     }
-    .section {
-        padding: 15px;
+    body {
+        margin-left: 180px;
     }
 }
 
-p {
-    text-indent: 2em;
-    margin-top: 1em;
+@media (max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+    body {
+        margin-left: 0;
+    }
 }
 
 
+/* ===========================
+   Cards e Botões (mesmo estilo do Dashboard)
+=========================== */
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #1b1f25;
+    border-radius: 10px;
+    padding: 18px;
+    width: 420px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.card h2 {
+    color: #00bfff;
+    margin-bottom: 12px;
+}
+
+.card button {
+    background-color: #00bfff;
+    border: none;
+    color: white;
+    padding: 8px 16px; /* mesmo tamanho do dashboard */
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px; /* mesmo espaçamento */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.card button:hover {
+    background-color: #0095c9;
+    transform: scale(1.05);
+}
+
+.card input[type="text"],
+.card input[type="number"] {
+    width: 90%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: #0c0e12;
+    color: #e2e2e2;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   Inputs Numéricos sem Setas
+=========================== */
+input[type=number] {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background-color: #0c0e12;
+    color: #e2e2e2;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ===========================
+   Responsividade
+=========================== */
+@media (max-width: 900px) {
+    .sidebar {
+        width: 160px;
+    }
+    body {
+        margin-left: 180px;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+    body {
+        margin-left: 0;
+    }
+}
+
+/* ===========================
+   Rodapé
+=========================== */
 footer {
     text-align: center;
     margin-top: 30px;
     color: #aaa;
 }
+

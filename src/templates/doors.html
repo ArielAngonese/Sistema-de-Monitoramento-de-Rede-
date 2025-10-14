@@ -8,6 +8,12 @@
 </head>
 
 <body>
+  <!-- Barra lateral -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="/" class="active">Dashboard</a>
+        <a href="/doors">Portas e Protocolos</a>
+    </div>
   <header>
     <h1>Portas e Protocolos</h1>
   </header>
@@ -102,20 +108,71 @@
     </section>
 
     <!-- Seção 6: Experimente -->
-<section class="section">
+<section class="section card-experimente">
   <h2>Experimente</h2>
-  <form id="scanForm" onsubmit="event.preventDefault(); runPortScan();">
-    <label for="targetHost">Digite um IP ou nome de host e veja quais portas estão abertas nesse sistema:</label>
-    <input type="text" id="targetHost" name="targetHost" placeholder="Ex: localhost ou 192.168.0.1" required pattern="^[a-zA-Z0-9\.\-:]+$">
-    <button type="submit">Executar varredura</button>
-  </form>
-  <pre id="scanOutput" aria-live="polite"></pre>
-</section>
 
-  </main>
+  <form id="scanForm" onsubmit="event.preventDefault(); runPortScan();">
+    <label for="targetHost">
+      Digite um IP ou nome de host e veja quais portas estão abertas nesse sistema:
+    </label>
+    <input
+      type="text"
+      id="targetHost"
+      name="targetHost"
+      placeholder="Ex: localhost ou 192.168.0.1"
+      required
+      pattern="^[a-zA-Z0-9\.\-:]+$"
+      autocomplete="off"
+    >
+    <button type="submit" id="scanBtn">Executar varredura</button>
+  </form>
+
+  <pre id="scanOutput" aria-live="polite" role="status"></pre>
+</section>
+</main>
 
   <footer>
     <p>Projeto Integrador II — Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
   </footer>
+
+  <script>
+async function runPortScan() {
+  const host = document.getElementById('targetHost').value.trim();
+  const out = document.getElementById('scanOutput');
+  const btn = document.getElementById('scanBtn');
+
+  if (!host) {
+    out.textContent = 'Informe um host válido.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Escaneando...';
+  out.textContent = `Iniciando varredura em ${host}...\n`;
+
+  try {
+    const resp = await fetch('/scan', {  // mesma rota que você usou antes
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ target: host })
+    });
+
+    const data = await resp.json();
+
+    if (data.status === 'ok') {
+      out.textContent += data.saida;
+    } else {
+      out.textContent += 'Erro: ' + (data.mensagem || 'Desconhecido');
+    }
+  } catch (err) {
+    out.textContent += 'Falha na requisição: ' + err.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Executar varredura';
+  }
+}
+</script>
+
+
 </body>
 </html>

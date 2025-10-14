@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard - Monitoramento de Rede</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="/" class="active">Dashboard</a>
+        <a href="/doors">Portas e Protocolos</a>
+    </div>
+
     <!-- Banner de Alerta -->
     <div id="alertBanner" class="alert-banner" aria-live="polite" role="status"></div>
 
-    <header>
-        <h1>Sistema de Monitoramento de Rede</h1>
-        <a href="/doors" class="menu-link">Aprenda: Portas e Protocolos</a>
-    </header>
+    <!-- Título principal -->
+    <h1>Sistema de Monitoramento de Rede</h1>
 
     <!-- Controles Gerais -->
     <div class="controls">
@@ -33,7 +38,6 @@
             <canvas id="graficoCPU"></canvas>
             <canvas id="graficoMemoria"></canvas>
         </div>
-
         <div class="card">
             <h2>Tráfego de Rede (KB/s)</h2>
             <canvas id="graficoRede"></canvas>
@@ -44,15 +48,14 @@
     <div class="container">
         <div class="card">
             <h2>Varredura de Portas</h2>
-            <input type="text" id="alvo" placeholder="Ex: 192.168.0.1 ou localhost">
-            <button onclick="fazerScan()">Iniciar Scan</button>
-            <pre id="resultadoScan"></pre>
+            <input type="text" id="target" placeholder="Ex: 192.168.0.1 ou localhost">
+            <button onclick="runScan()">Iniciar Scan</button>
+            <pre id="scanResult"></pre>
         </div>
-
         <div class="card">
             <h2>Análise de Pacotes</h2>
-            <button onclick="analisarPacotes()">Capturar Pacotes (10s)</button>
-            <pre id="resultadoPacotes"></pre>
+            <button onclick="analyzePackets()">Capturar Pacotes (10s)</button>
+            <pre id="packetResult"></pre>
         </div>
     </div>
 

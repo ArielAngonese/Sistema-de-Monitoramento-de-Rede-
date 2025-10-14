@@ -13,6 +13,24 @@ h1 {
     margin-bottom: 18px;
 }
 
+/* Link do menu (botão Aprenda) */
+.menu-link {
+    display: inline-block;
+    background-color: #00bfff;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.menu-link:hover {
+    background-color: #0095c9;
+    transform: scale(1.03);
+}
+
 /* Banner de Alerta */
 .alert-banner {
     display: none;
@@ -24,57 +42,117 @@ h1 {
     font-weight: bold;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
-
-.alert-banner.visible {
-    display: block;
-}
-
-/* Estilo para tipos de alerta */
-.alert-banner.warn {
-    background-color: #ffae42;
-    color: #211;
-}
-
-.alert-banner.crit {
-    background-color: #ff4c4c;
-    color: #fff;
-}
+.alert-banner.visible { display: block; }
+.alert-banner.warn { background-color: #ffae42; color: #211; }
+.alert-banner.crit { background-color: #ff4c4c; color: #fff; }
 
 /* Controles */
-.controls {
+/* Ajuste dos campos de limite (CPU / Memória) */
+.controls .thresholds {
     display: flex;
     gap: 12px;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
 }
+
+.controls label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+}
+
+/* Campos numéricos personalizados (CPU / Memória) */
+.controls input[type="number"] {
+    width: 70px;
+    padding: 6px 10px;
+    border: none;                 /* Sem borda */
+    border-radius: 6px;
+    background-color: #0c0e12;
+    color: #e2e2e2;
+    font-weight: bold;
+    text-align: center;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.controls input[type="number"]:focus {
+    outline: none;       /* remove contorno azul */
+    box-shadow: none;    /* remove sombra azul */
+    background-color: #16191f; /* mantém fundo consistente */
+}
+
+
+/* Remove setas padrão */
+.controls input[type="number"]::-webkit-inner-spin-button,
+.controls input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Adiciona setinhas customizadas */
+.controls label {
+    position: relative;
+}
+
+/* Remove as setas padrão e cria um visual mais limpo */
+.controls input[type="number"]::-webkit-inner-spin-button,
+.controls input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Alinhamento mais justo dos botões e inputs */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
 
 .controls button {
     background-color: #00bfff;
     border: none;
     color: white;
-    padding: 8px 14px;
+    padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .controls button:hover {
     background-color: #0095c9;
+    transform: scale(1.05);
 }
 
-.controls .thresholds {
+/* Campo de limite (CPU/Memória) */
+.thresholds {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     align-items: center;
 }
 
-.controls input[type="number"] {
-    width: 72px;
+.thresholds label {
+    background-color: #0c0e12;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.thresholds input[type="number"] {
+    width: 65px;
     padding: 6px;
     border-radius: 6px;
     border: none;
+    background-color: #16191f;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
 }
 
 /* Layout dos Cards */
@@ -95,25 +173,34 @@ h1 {
     text-align: center;
 }
 
+.card h2 {
+    color: #00bfff;
+    margin-bottom: 12px;
+}
+
 canvas {
     width: 100% !important;
     height: 220px !important;
     margin-top: 10px;
 }
 
-button {
-    font-family: inherit;
-}
-
+/* Campos e botões */
 input[type="text"] {
     width: 80%;
     padding: 8px;
     border-radius: 6px;
     border: none;
+    background-color: #0c0e12;
+    color: #e2e2e2;
     margin-top: 8px;
     box-sizing: border-box;
 }
 
+button {
+    font-family: inherit;
+}
+
+/* Saída de texto */
 pre {
     text-align: left;
     background-color: #0c0e12;
@@ -127,3 +214,130 @@ pre {
     font-size: 13px;
     margin-top: 10px;
 }
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #aaa;
+}
+
+
+/* Evita sobreposição em telas pequenas */
+@media (max-width: 600px) {
+    .menu-link {
+        top: 14px;
+        right: 15px;
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+}
+/* ===========================
+   Barra lateral de navegação
+=========================== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background-color: #1b1f25;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar h2 {
+    color: #00bfff;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.sidebar a {
+    color: #e2e2e2;
+    text-decoration: none;
+    margin: 8px 0;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    width: 80%;
+    text-align: center;
+    background-color: #0f1115;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #00bfff;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Ajuste do conteúdo principal (para não ficar sob a sidebar) */
+body {
+    margin-left: 220px;
+}
+
+/* ===========================
+   Botões de ação inferiores
+=========================== */
+.card button {
+    background-color: #00bfff;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.card button:hover {
+    background-color: #0095c9;
+    transform: scale(1.05);
+}
+
+/* Inputs de texto dentro dos cards */
+.card input[type="text"] {
+    width: 90%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: #0c0e12;
+    color: #e2e2e2;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+/* Ajustes de responsividade */
+@media (max-width: 900px) {
+    .sidebar {
+        width: 160px;
+    }
+    body {
+        margin-left: 180px;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+    body {
+        margin-left: 0;
+    }
+}
+
+/* Card superior ocupa largura total */
+.container.top .card {
+    width: 880px;
+}
+
+/* Garante que o espaçamento lateral fique igual ao dos outros */
+.container.top {
+    justify-content: center;
+}
+
