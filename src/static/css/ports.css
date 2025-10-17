@@ -1,5 +1,5 @@
 /* ===========================
-   Base
+   BASE
 =========================== */
 body {
     background-color: #0f1115;
@@ -8,7 +8,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 30px;
-    margin-left: 220px; /* espaçamento lateral fixo da sidebar */
+    margin-left: 220px; /* espaço lateral da sidebar */
 }
 
 h1 {
@@ -17,7 +17,7 @@ h1 {
     margin-bottom: 30px;
 }
 
-h2 {
+h2, h3, h4 {
     color: #00bfff;
     margin-bottom: 12px;
 }
@@ -25,17 +25,15 @@ h2 {
 h3 {
     color: #00dfff;
     margin-top: 12px;
-    margin-bottom: 8px;
 }
 
 h4 {
     color: #00dfff;
     margin-top: 10px;
-    margin-bottom: 6px;
 }
 
 /* ===========================
-   Conteúdo Central
+   CONTEÚDO CENTRAL
 =========================== */
 .content {
     max-width: 900px;
@@ -44,15 +42,15 @@ h4 {
 }
 
 .section {
-    padding: 20px;
-    margin-bottom: 25px;
     background-color: #1b1f25;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin-bottom: 25px;
 }
 
 /* ===========================
-   Parágrafos e Listas
+   TEXTO E LISTAS
 =========================== */
 p, li {
     margin-bottom: 10px;
@@ -63,7 +61,7 @@ ul {
 }
 
 /* ===========================
-   Tabela de Portas
+   TABELA DE PORTAS
 =========================== */
 .table-ports {
     width: 100%;
@@ -71,7 +69,8 @@ ul {
     margin-top: 12px;
 }
 
-.table-ports th, .table-ports td {
+.table-ports th, 
+.table-ports td {
     border: 1px solid #333;
     padding: 8px;
     text-align: center;
@@ -87,7 +86,7 @@ ul {
 }
 
 /* ===========================
-   Formulário
+   FORMULÁRIO DE VARREDURA
 =========================== */
 #scanForm {
     display: flex;
@@ -127,7 +126,7 @@ ul {
 }
 
 /* ===========================
-   Saída de Texto (pre)
+   SAÍDA DE TEXTO (RESULTADO)
 =========================== */
 pre {
     text-align: left;
@@ -143,7 +142,7 @@ pre {
 }
 
 /* ===========================
-   Barra lateral de navegação
+   BARRA LATERAL
 =========================== */
 .sidebar {
     position: fixed;
@@ -171,7 +170,6 @@ pre {
     margin: 8px 0;
     padding: 10px 16px;
     border-radius: 6px;
-    margin-bottom: 2px;
     width: 80%;
     text-align: center;
     background-color: #0f1115;
@@ -179,71 +177,15 @@ pre {
     transition: all 0.3s;
 }
 
-.sidebar a:hover {
+.sidebar a:hover,
+.sidebar a.active {
     background-color: #00bfff;
     color: #fff;
     transform: scale(1.05);
 }
 
-/* Ajuste do conteúdo principal (para não ficar sob a sidebar) */
-body {
-    margin-left: 220px;
-}
-
 /* ===========================
-   Botões de ação inferiores
-=========================== */
-.card button {
-    background-color: #00bfff;
-    border: none;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 8px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.card button:hover {
-    background-color: #0095c9;
-    transform: scale(1.05);
-}
-
-/* Inputs de texto dentro dos cards */
-.card input[type="text"] {
-    width: 90%;
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    background-color: #0c0e12;
-    color: #e2e2e2;
-    margin-top: 8px;
-    box-sizing: border-box;
-}
-
-/* Ajustes de responsividade */
-@media (max-width: 900px) {
-    .sidebar {
-        width: 160px;
-    }
-    body {
-        margin-left: 180px;
-    }
-}
-
-@media (max-width: 600px) {
-    .sidebar {
-        display: none;
-    }
-    body {
-        margin-left: 0;
-    }
-}
-
-
-/* ===========================
-   Cards e Botões (mesmo estilo do Dashboard)
+   CARDS E BOTÕES (PADRÃO)
 =========================== */
 .container {
     display: flex;
@@ -256,32 +198,15 @@ body {
 .card {
     background-color: #1b1f25;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: 18px;
     width: 420px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
 }
 
 .card h2 {
     color: #00bfff;
     margin-bottom: 12px;
-}
-
-.card button {
-    background-color: #00bfff;
-    border: none;
-    color: white;
-    padding: 8px 16px; /* mesmo tamanho do dashboard */
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 8px; /* mesmo espaçamento */
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.card button:hover {
-    background-color: #0095c9;
-    transform: scale(1.05);
 }
 
 .card input[type="text"],
@@ -296,8 +221,25 @@ body {
     box-sizing: border-box;
 }
 
+.card button {
+    background-color: #00bfff;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.card button:hover {
+    background-color: #0095c9;
+    transform: scale(1.05);
+}
+
 /* ===========================
-   Inputs Numéricos sem Setas
+   INPUTS NUMÉRICOS
 =========================== */
 input[type=number] {
     -moz-appearance: textfield;
@@ -317,7 +259,16 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* ===========================
-   Responsividade
+   RODAPÉ
+=========================== */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #aaa;
+}
+
+/* ===========================
+   RESPONSIVIDADE
 =========================== */
 @media (max-width: 900px) {
     .sidebar {
@@ -336,13 +287,3 @@ input[type=number]::-webkit-outer-spin-button {
         margin-left: 0;
     }
 }
-
-/* ===========================
-   Rodapé
-=========================== */
-footer {
-    text-align: center;
-    margin-top: 30px;
-    color: #aaa;
-}
-

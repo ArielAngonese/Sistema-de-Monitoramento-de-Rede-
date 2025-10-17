@@ -12,26 +12,26 @@
     <div class="sidebar">
         <h2>Menu</h2>
         <a href="/" class="active">Dashboard</a>
-        <a href="/doors">Portas e Protocolos</a>
+        <a href="/ports">Portas e Protocolos</a>
     </div>
 
-    <!-- Banner de Alerta -->
+    <!-- Banner de alerta -->
     <div id="alertBanner" class="alert-banner" aria-live="polite" role="status"></div>
 
     <!-- Título principal -->
     <h1>Sistema de Monitoramento de Rede</h1>
 
-    <!-- Controles Gerais -->
+    <!-- Controles -->
     <div class="controls">
         <button id="btnPause" onclick="togglePause()">Pausar</button>
         <button id="btnReset" onclick="resetCharts()">Resetar Gráficos</button>
         <div class="thresholds">
             <label>Limite CPU: <input id="thrCpu" type="number" min="1" max="100" value="80"></label>
-            <label>Limite Mem: <input id="thrMem" type="number" min="1" max="100" value="80"></label>
+            <label>Limite Memória: <input id="thrMem" type="number" min="1" max="100" value="80"></label>
         </div>
     </div>
 
-    <!-- Bloco de Gráficos -->
+    <!-- Gráficos -->
     <div class="container">
         <div class="card">
             <h2>Status do Sistema</h2>
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <!-- Bloco de Ferramentas -->
+    <!-- Ferramentas -->
     <div class="container">
         <div class="card">
             <h2>Varredura de Portas</h2>
@@ -54,13 +54,13 @@
         </div>
         <div class="card">
             <h2>Análise de Pacotes</h2>
-            <button onclick="analyzePackets()">Capturar Pacotes (10s)</button>
+            <button onclick="capturePackets()">Capturar Pacotes (10s)</button>
             <pre id="packetResult"></pre>
         </div>
     </div>
 
     <footer>
-        <p>Projeto Integrador II - Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+        <p>Projeto Integrador II - Ariel Liotto Angonese, Emanuel Júlio Solivo, Vítor Luis Andreolla</p>
     </footer>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

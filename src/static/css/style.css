@@ -1,4 +1,6 @@
-/* Base */
+/* ===========================
+   BASE
+=========================== */
 body {
     background-color: #0f1115;
     color: #e2e2e2;
@@ -8,12 +10,21 @@ body {
     padding: 30px;
 }
 
+/* Tipografia */
 h1 {
     color: #00bfff;
     margin-bottom: 18px;
 }
 
-/* Link do menu (botão Aprenda) */
+h2 {
+    color: #00bfff;
+    margin-bottom: 12px;
+}
+
+/* ===========================
+   LINKS E BOTÕES
+=========================== */
+
 .menu-link {
     display: inline-block;
     background-color: #00bfff;
@@ -31,87 +42,9 @@ h1 {
     transform: scale(1.03);
 }
 
-/* Banner de Alerta */
-.alert-banner {
-    display: none;
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto 15px auto;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-.alert-banner.visible { display: block; }
-.alert-banner.warn { background-color: #ffae42; color: #211; }
-.alert-banner.crit { background-color: #ff4c4c; color: #fff; }
-
-/* Controles */
-/* Ajuste dos campos de limite (CPU / Memória) */
-.controls .thresholds {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.controls label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: bold;
-}
-
-/* Campos numéricos personalizados (CPU / Memória) */
-.controls input[type="number"] {
-    width: 70px;
-    padding: 6px 10px;
-    border: none;                 /* Sem borda */
-    border-radius: 6px;
-    background-color: #0c0e12;
-    color: #e2e2e2;
-    font-weight: bold;
-    text-align: center;
-    outline: none;
-    transition: all 0.25s ease;
-}
-
-.controls input[type="number"]:focus {
-    outline: none;       /* remove contorno azul */
-    box-shadow: none;    /* remove sombra azul */
-    background-color: #16191f; /* mantém fundo consistente */
-}
-
-
-/* Remove setas padrão */
-.controls input[type="number"]::-webkit-inner-spin-button,
-.controls input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Adiciona setinhas customizadas */
-.controls label {
-    position: relative;
-}
-
-/* Remove as setas padrão e cria um visual mais limpo */
-.controls input[type="number"]::-webkit-inner-spin-button,
-.controls input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Alinhamento mais justo dos botões e inputs */
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px;
-    margin-bottom: 20px;
-}
-
-
-.controls button {
+/* Botões gerais dentro de controls */
+.controls button,
+.card button {
     background-color: #00bfff;
     border: none;
     color: white;
@@ -122,12 +55,73 @@ h1 {
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.controls button:hover {
+.controls button:hover,
+.card button:hover {
     background-color: #0095c9;
     transform: scale(1.05);
 }
 
-/* Campo de limite (CPU/Memória) */
+/* ===========================
+   ALERTAS
+=========================== */
+.alert-banner {
+    display: none;
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto 15px auto;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.alert-banner.visible { display: block; }
+.alert-banner.warn { background-color: #ffae42; color: #211; }
+.alert-banner.crit { background-color: #ff4c4c; color: #fff; }
+
+/* ===========================
+   CONTROLES
+=========================== */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.controls label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    position: relative;
+}
+
+.controls input[type="number"] {
+    width: 70px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: #0c0e12;
+    color: #e2e2e2;
+    font-weight: bold;
+    text-align: center;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.controls input[type="number"]:focus {
+    background-color: #16191f;
+}
+
+.controls input[type="number"]::-webkit-inner-spin-button,
+.controls input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Thresholds */
 .thresholds {
     display: flex;
     gap: 15px;
@@ -139,9 +133,6 @@ h1 {
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
 }
 
 .thresholds input[type="number"] {
@@ -155,13 +146,23 @@ h1 {
     font-weight: bold;
 }
 
-/* Layout dos Cards */
+/* ===========================
+   CARDS E CONTAINER
+=========================== */
 .container {
     display: flex;
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
     margin-bottom: 20px;
+}
+
+.container.top {
+    justify-content: center;
+}
+
+.container.top .card {
+    width: 880px;
 }
 
 .card {
@@ -173,18 +174,20 @@ h1 {
     text-align: center;
 }
 
-.card h2 {
-    color: #00bfff;
-    margin-bottom: 12px;
+.card input[type="text"] {
+    width: 90%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: #0c0e12;
+    color: #e2e2e2;
+    margin-top: 8px;
+    box-sizing: border-box;
 }
 
-canvas {
-    width: 100% !important;
-    height: 220px !important;
-    margin-top: 10px;
-}
-
-/* Campos e botões */
+/* ===========================
+   INPUTS DE TEXTO E PRE
+=========================== */
 input[type="text"] {
     width: 80%;
     padding: 8px;
@@ -196,11 +199,6 @@ input[type="text"] {
     box-sizing: border-box;
 }
 
-button {
-    font-family: inherit;
-}
-
-/* Saída de texto */
 pre {
     text-align: left;
     background-color: #0c0e12;
@@ -215,25 +213,22 @@ pre {
     margin-top: 10px;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 25px;
-    color: #aaa;
+#target + button {
+    margin-top: 12px; 
 }
 
 
-/* Evita sobreposição em telas pequenas */
-@media (max-width: 600px) {
-    .menu-link {
-        top: 14px;
-        right: 15px;
-        padding: 8px 14px;
-        font-size: 14px;
-    }
-}
 /* ===========================
-   Barra lateral de navegação
+          GRÁFICOS
+=========================== */
+canvas {
+    width: 100% !important;
+    height: 220px !important;
+    margin-top: 10px;
+}
+
+/* ===========================
+   BARRA LATERAL
 =========================== */
 .sidebar {
     position: fixed;
@@ -275,44 +270,23 @@ footer {
     transform: scale(1.05);
 }
 
-/* Ajuste do conteúdo principal (para não ficar sob a sidebar) */
+/* Ajuste do conteúdo principal */
 body {
     margin-left: 220px;
 }
 
 /* ===========================
-   Botões de ação inferiores
+   FOOTER
 =========================== */
-.card button {
-    background-color: #00bfff;
-    border: none;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 8px;
-    transition: background-color 0.3s, transform 0.2s;
+footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #aaa;
 }
 
-.card button:hover {
-    background-color: #0095c9;
-    transform: scale(1.05);
-}
-
-/* Inputs de texto dentro dos cards */
-.card input[type="text"] {
-    width: 90%;
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    background-color: #0c0e12;
-    color: #e2e2e2;
-    margin-top: 8px;
-    box-sizing: border-box;
-}
-
-/* Ajustes de responsividade */
+/* ===========================
+   RESPONSIVIDADE
+=========================== */
 @media (max-width: 900px) {
     .sidebar {
         width: 160px;
@@ -330,14 +304,3 @@ body {
         margin-left: 0;
     }
 }
-
-/* Card superior ocupa largura total */
-.container.top .card {
-    width: 880px;
-}
-
-/* Garante que o espaçamento lateral fique igual ao dos outros */
-.container.top {
-    justify-content: center;
-}
-

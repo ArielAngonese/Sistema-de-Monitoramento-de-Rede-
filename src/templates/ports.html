@@ -3,22 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Doors — Portas e Protocolos</title>
-  <link rel="stylesheet" href="/static/css/doors.css">
+  <meta name="description" content="Página explicativa sobre portas e protocolos e ferramenta de varredura de portas (Nmap) - Projeto Integrador.">
+  <title>Ports — Portas e Protocolos</title>
+  <link rel="stylesheet" href="/static/css/ports.css">
 </head>
 
 <body>
   <!-- Barra lateral -->
-    <div class="sidebar">
-        <h2>Menu</h2>
-        <a href="/" class="active">Dashboard</a>
-        <a href="/doors">Portas e Protocolos</a>
-    </div>
+  <div class="sidebar">
+    <h2>Menu</h2>
+    <a href="/" class="active">Dashboard</a>
+    <a href="/ports">Portas e Protocolos</a>
+  </div>
+
   <header>
     <h1>Portas e Protocolos</h1>
   </header>
 
-  <main class="content">
+   <main class="content">
     <!-- Seção 1: IP e Portas -->
     <section class="section">
       <h2>Funcionamento de Endereços IP, Portas e Protocolos de Transporte</h2>
@@ -69,7 +71,7 @@
         transferência de arquivos e navegação web, pois implementa mecanismos de verificação, controle de fluxo e gerenciamento de 
         congestionamento. Além disso, ele segmenta os dados em pacotes e reagrupa no destino, permitindo uma comunicação robusta e 
         confiável, mesmo em redes com falhas temporárias ou instabilidade, oferecendo ao usuário final uma experiência de transmissão 
-        segura e consistente
+        segura e consistente.
       </p>
       <p>
         O User Datagram Protocol, ou UDP, diferencia-se do TCP por ser um protocolo sem conexão, priorizando a velocidade em vez da 
@@ -108,71 +110,88 @@
     </section>
 
     <!-- Seção 6: Experimente -->
-<section class="section card-experimente">
-  <h2>Experimente</h2>
+    <section class="section card-experimente">
+      <h2>Experimente</h2>
 
-  <form id="scanForm" onsubmit="event.preventDefault(); runPortScan();">
-    <label for="targetHost">
-      Digite um IP ou nome de host e veja quais portas estão abertas nesse sistema:
-    </label>
-    <input
-      type="text"
-      id="targetHost"
-      name="targetHost"
-      placeholder="Ex: localhost ou 192.168.0.1"
-      required
-      pattern="^[a-zA-Z0-9\.\-:]+$"
-      autocomplete="off"
-    >
-    <button type="submit" id="scanBtn">Executar varredura</button>
-  </form>
+      <form id="scanForm" onsubmit="event.preventDefault(); runPortScan();">
+        <label for="targetHost">Digite um IP ou nome de host e veja quais portas estão abertas nesse sistema:</label>
+        <input
+          type="text"
+          id="targetHost"
+          name="targetHost"
+          placeholder="Ex: localhost ou 192.168.0.1[:80]"
+          required
+          pattern="^[a-zA-Z0-9\.\-:]+$"
+          autocomplete="off"
+          autofocus
+          aria-label="Host para varredura (IP ou domínio)"
+        >
+        <button type="submit" id="scanBtn" aria-controls="scanOutput">Executar varredura</button>
+      </form>
 
-  <pre id="scanOutput" aria-live="polite" role="status"></pre>
-</section>
-</main>
+      <noscript>
+        <p style="color:#f4b400">Javascript é necessário para executar a varredura interativa. Ative o JavaScript e recarregue a página.</p>
+      </noscript>
+
+      <pre id="scanOutput" aria-live="polite" role="status"></pre>
+    </section>
+  </main>
 
   <footer>
     <p>Projeto Integrador II — Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
   </footer>
 
+  <!-- Recomendo mover este script para /static/js/ports.js e incluir aqui com <script src="..."></script> -->
   <script>
-async function runPortScan() {
-  const host = document.getElementById('targetHost').value.trim();
-  const out = document.getElementById('scanOutput');
-  const btn = document.getElementById('scanBtn');
+  async function runPortScan() {
+    const hostInput = document.getElementById('targetHost');
+    const host = hostInput.value.trim();
+    const out = document.getElementById('scanOutput');
+    const btn = document.getElementById('scanBtn');
 
-  if (!host) {
-    out.textContent = 'Informe um host válido.';
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Escaneando...';
-  out.textContent = `Iniciando varredura em ${host}...\n`;
-
-  try {
-    const resp = await fetch('/scan', {  // mesma rota que você usou antes
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ target: host })
-    });
-
-    const data = await resp.json();
-
-    if (data.status === 'ok') {
-      out.textContent += data.saida;
-    } else {
-      out.textContent += 'Erro: ' + (data.mensagem || 'Desconhecido');
+    if (!host) {
+      out.textContent = 'Informe um host válido.';
+      return;
     }
-  } catch (err) {
-    out.textContent += 'Falha na requisição: ' + err.message;
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Executar varredura';
+
+    btn.disabled = true;
+    btn.setAttribute('aria-busy', 'true');
+    btn.textContent = 'Escaneando...';
+    out.textContent = `Iniciando varredura em ${host}...\n`;
+
+    try {
+      const resp = await fetch(`/scan?target=${encodeURIComponent(host)}`);
+      // verifica status HTTP antes de parsear JSON
+      if (!resp.ok) {
+        const text = await resp.text().catch(() => '');
+        out.textContent += `Erro HTTP ${resp.status}: ${text || resp.statusText}\n`;
+        return;
+      }
+
+      const data = await resp.json();
+
+      if (data.status === 'ok') {
+        // usa textContent para evitar XSS se backend enviar algo inesperado
+        out.textContent += (data.output || data.saida || JSON.stringify(data, null, 2));
+      } else {
+        out.textContent += 'Erro: ' + (data.output || data.mensagem || 'Desconhecido');
+      }
+    } catch (err) {
+      out.textContent += 'Falha na requisição: ' + (err && err.message ? err.message : String(err));
+    } finally {
+      btn.disabled = false;
+      btn.removeAttribute('aria-busy');
+      btn.textContent = 'Executar varredura';
+    }
   }
-}
-</script>
 
-
+  // Habilita Enter no input para submeter o formulário
+  document.getElementById('targetHost').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      runPortScan();
+    }
+  });
+  </script>
 </body>
 </html>
