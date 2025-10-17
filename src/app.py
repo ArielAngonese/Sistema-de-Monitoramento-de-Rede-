@@ -50,19 +50,20 @@ def traduzir_nmap(output: str) -> str:
         "host up": "host(s) ativo(s)",
         "in": "em",
         "seconds": "segundos",
+
         # Serviços comuns
         "msrpc": "RPC da Microsoft",
         "netbios-ssn": "Sessão NetBIOS",
         "microsoft-ds": "Compartilhamento Microsoft"
     }
 
-    # substituição case-insensitive usando regex com bordas de palavra
+    # Substituição case-insensitive usando regex com bordas de palavra
     for eng, pt in traducoes.items():
         output = re.sub(rf"\b{re.escape(eng)}\b", pt, output, flags=re.IGNORECASE)
 
     return output
 
-# Varredura de portas (rota corrigida)
+# Varredura de portas 
 @app.route('/scan')
 def scan():
     try:
@@ -71,10 +72,9 @@ def scan():
             return jsonify({"status": "erro", "output": "Alvo inválido"}), 400
 
         result = scanner.scan_ports(target)
-        # pega o texto original retornado pelo scanner (chave 'saida' ou 'mensagem')
         output = result.get("saida", result.get("mensagem", ""))
 
-        # traduz o texto (se houver)
+        # Traduz o texto
         if isinstance(output, str) and output:
             output_translated = traduzir_nmap(output)
         else:

@@ -8,7 +8,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 30px;
-    margin-left: 220px; /* espaço lateral da sidebar */
+    margin-left: 220px;
 }
 
 h1 {
@@ -126,7 +126,7 @@ ul {
 }
 
 /* ===========================
-   SAÍDA DE TEXTO (RESULTADO)
+   SAÍDA DE TEXTO
 =========================== */
 pre {
     text-align: left;

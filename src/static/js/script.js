@@ -1,7 +1,7 @@
 // ===========================
 // Configurações e constantes
 // ===========================
-const UPDATE_INTERVAL_MS = 2000;   // Intervalo de atualização (2s)
+const UPDATE_INTERVAL_MS = 2000;   // Intervalo de atualização
 const MAX_DATA_POINTS = 10;        // Máximo de pontos nos gráficos
 const defaultCpuColor = '#00bfff';
 const defaultMemColor = '#00ff88';

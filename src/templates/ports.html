@@ -12,7 +12,7 @@
   <!-- Barra lateral -->
   <div class="sidebar">
     <h2>Menu</h2>
-    <a href="/" class="active">Dashboard</a>
+    <a href="/">Dashboard</a>
     <a href="/ports">Portas e Protocolos</a>
   </div>
 
@@ -141,7 +141,6 @@
     <p>Projeto Integrador II — Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
   </footer>
 
-  <!-- Recomendo mover este script para /static/js/ports.js e incluir aqui com <script src="..."></script> -->
   <script>
   async function runPortScan() {
     const hostInput = document.getElementById('targetHost');
@@ -161,7 +160,7 @@
 
     try {
       const resp = await fetch(`/scan?target=${encodeURIComponent(host)}`);
-      // verifica status HTTP antes de parsear JSON
+      // Verifica status HTTP antes de parsear JSON
       if (!resp.ok) {
         const text = await resp.text().catch(() => '');
         out.textContent += `Erro HTTP ${resp.status}: ${text || resp.statusText}\n`;
@@ -171,7 +170,7 @@
       const data = await resp.json();
 
       if (data.status === 'ok') {
-        // usa textContent para evitar XSS se backend enviar algo inesperado
+        // Usa textContent para evitar XSS se backend enviar algo inesperado
         out.textContent += (data.output || data.saida || JSON.stringify(data, null, 2));
       } else {
         out.textContent += 'Erro: ' + (data.output || data.mensagem || 'Desconhecido');

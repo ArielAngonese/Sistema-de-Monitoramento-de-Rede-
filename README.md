@@ -93,6 +93,7 @@ O sistema ficará disponível em:
 
 - Adição de outas páginas explicativas sobre conceitos fundamentais de Redes de Computadores e Segurança da Informação;
 - Novos meios de testar na prática os conceitos apresnetados;
+- Melhoria do dicionário;
 - Outras melhorias gerais e de usabilidade.
 
 ## ⚠️ Observações
