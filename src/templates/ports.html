@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Página explicativa sobre portas e protocolos e ferramenta de varredura de portas (Nmap) - Projeto Integrador.">
   <title>Ports — Portas e Protocolos</title>
-  <link rel="stylesheet" href="/static/css/ports.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
   <!-- Barra lateral -->
   <div class="sidebar">
-    <h2>Menu</h2>
-    <a href="/">Dashboard</a>
-    <a href="/ports">Portas e Protocolos</a>
+  <h2>Menu</h2>
+  <a href="/">Dashboard</a>
+  <a href="/ports" class="active">Portas e Protocolos</a>
   </div>
 
   <header>
