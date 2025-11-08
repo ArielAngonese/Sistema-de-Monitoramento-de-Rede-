@@ -22,7 +22,8 @@ let MEM_THRESHOLD = 80;            // Inicial padrão
 const elThrCpu = document.getElementById('thrCpu');
 const elThrMem = document.getElementById('thrMem');
 const elBtnPause = document.getElementById('btnPause');
-const elAlertBanner = document.getElementById('alertBanner');
+const elAlertBannerCpu = document.getElementById('alertBannerCpu');
+const elAlertBannerMem = document.getElementById('alertBannerMem');
 const elScanResult = document.getElementById('scanResult');
 const elPacketResult = document.getElementById('packetResult');
 
@@ -53,14 +54,24 @@ const netChart = new Chart(document.getElementById('graficoRede'), {
 // ===========================
 // Funções utilitárias
 // ===========================
-function showBanner(message, level='warn') {
-    elAlertBanner.textContent = message;
-    elAlertBanner.className = `alert-banner visible ${level}`;
+function showBannerCpu(message, level='warn') {
+    elAlertBannerCpu.textContent = message;
+    elAlertBannerCpu.className = `alert-banner visible ${level}`;
 }
 
-function hideBanner() {
-    elAlertBanner.textContent = '';
-    elAlertBanner.className = 'alert-banner';
+function showBannerMem(message, level='warn') {
+    elAlertBannerMem.textContent = message;
+    elAlertBannerMem.className = `alert-banner visible ${level}`;
+}
+
+function hideBannerCpu() {
+    elAlertBannerCpu.textContent = '';
+    elAlertBannerCpu.className = 'alert-banner';
+}
+
+function hideBannerMem() {
+    elAlertBannerMem.textContent = '';
+    elAlertBannerMem.className = 'alert-banner';
 }
 
 function getThresholds() {
@@ -79,18 +90,18 @@ function handleAlerts(data) {
 
     if (cpu >= CPU_THRESHOLD) {
         cpuChart.data.datasets[0].borderColor = '#ff4c4c';
-        showBanner(`ALERTA: CPU alta — ${cpu}% (limite ${CPU_THRESHOLD}%)`, 'crit');
+        showBannerCpu(`ALERTA: CPU alta — ${cpu}% (limite ${CPU_THRESHOLD}%)`, 'crit');
     } else {
         cpuChart.data.datasets[0].borderColor = defaultCpuColor;
-        if (mem < MEM_THRESHOLD) hideBanner();
+        hideBannerCpu();
     }
 
     if (mem >= MEM_THRESHOLD) {
         memChart.data.datasets[0].borderColor = '#ff4c4c';
-        showBanner(`ALERTA: Memória alta — ${mem}% (limite ${MEM_THRESHOLD}%)`, 'crit');
+        showBannerMem(`ALERTA: Memória alta — ${mem}% (limite ${MEM_THRESHOLD}%)`, 'crit');
     } else {
         memChart.data.datasets[0].borderColor = defaultMemColor;
-        if (cpu < CPU_THRESHOLD) hideBanner();
+        hideBannerMem();
     }
 }
 
@@ -156,7 +167,8 @@ function resetCharts() {
 
     prevBytesSent = null;
     prevBytesRecv = null;
-    hideBanner();
+    hideBannerCpu();
+    hideBannerMem();
 }
 
 // ===========================

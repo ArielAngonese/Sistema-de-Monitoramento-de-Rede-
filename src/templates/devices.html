@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Página explicativa sobre dispositivos conectados e ferramenta de scanner de rede - NetLab.">
+  <title>Devices — Dispositivos Conectados</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <!-- Barra lateral -->
+  <div class="sidebar">
+    <h2>Menu</h2>
+    <a href="/">Página Inicial</a>
+    <a href="/ports">Portas e Protocolos</a>
+    <a href="/devices" class="active">Dispositivos Conectados</a>
+    <a href="/security">Segurança e Detecção</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+
+  <header>
+    <h1>Dispositivos Conectados</h1>
+  </header>
+
+  <main class="content">
+    <!-- Seção 1: Explicação Detalhada -->
+    <section class="section">
+      <h2>Monitoramento de Dispositivos na Rede</h2>
+      <p>
+        O monitoramento de dispositivos conectados é uma prática essencial para a administração e segurança de redes. 
+        Ele permite identificar todos os <strong>hosts ativos</strong>, como computadores, roteadores, impressoras e dispositivos IoT, 
+        que estão trocando dados dentro de uma mesma sub-rede.
+      </p>
+      <p>
+        Cada dispositivo em uma rede é identificado por um endereço <strong>IP</strong> (Internet Protocol) e um endereço físico <strong>MAC</strong> (Media Access Control). 
+        Essas informações são fundamentais para mapear a topologia e detectar a presença de equipamentos não autorizados ou em conflito de endereçamento.
+      </p>
+      <p>
+        Nesta página, é possível realizar uma <strong>varredura de rede</strong> para identificar os dispositivos conectados e compreender, na prática, 
+        como ocorre o processo de <em>descoberta de hosts</em>, etapa inicial de qualquer análise de rede ou auditoria de segurança.
+      </p>
+    </section>
+
+    <!-- Seção 2: Fundamentos Técnicos -->
+    <section class="section">
+      <h2>Fundamentos Técnicos</h2>
+      <p>
+        A detecção de dispositivos conectados a uma rede utiliza protocolos de comunicação como:
+      </p>
+      <ul>
+        <li><strong>ICMP (Internet Control Message Protocol):</strong> usado pelo comando <code>ping</code> para verificar se um host responde e está ativo.</li>
+        <li><strong>ARP (Address Resolution Protocol):</strong> mapeia endereços IP para endereços MAC, identificando dispositivos dentro da rede local.</li>
+      </ul>
+      <p>
+        Com base nessas técnicas, é possível construir uma <strong>visão topológica</strong> da rede, facilitando o diagnóstico de falhas, 
+        a identificação de intrusos e o controle sobre quais dispositivos estão utilizando os recursos disponíveis.
+      </p>
+    </section>
+
+    <!-- Seção 3: Ferramenta Utilizada -->
+    <section class="section">
+      <h2>Ferramenta Utilizada</h2>
+      <ul>
+        <li>
+          <strong>Nmap (Network Mapper):</strong> ferramenta principal utilizada nesta página para a detecção de hosts (varredura do tipo <code>-sn</code>, «ping scan»). 
+          O Nmap identifica quais endereços IP estão ativos na faixa informada e produz um relatório com os hosts respondentes.
+        </li>
+      </ul>
+      <p>
+        Nesta implementação, o Nmap é executado no backend e a saída é enviada ao frontend para exibição. 
+        Para descoberta de hosts em redes locais o Nmap utiliza técnicas como <strong>ARP</strong> (em redes Ethernet) e <strong>ICMP</strong> (ping), aumentando a taxa de detecção em comparação a um simples ping ICMP.
+      </p>
+    </section>
+
+    <!-- Seção 4: Experimente -->
+    <section class="section card-experimente">
+      <h2>Experimente</h2>
+      <p>
+        Abaixo, você pode realizar uma varredura de rede simples. Basta informar um endereço IP ou faixa de rede 
+        (por exemplo, <code>192.168.0.0/24</code>) para que o sistema identifique os dispositivos conectados. 
+        Os resultados exibem endereços IP ativos e, quando possível, o nome do host correspondente.
+      </p>
+
+      <form id="scanDevicesForm" onsubmit="event.preventDefault(); runDeviceScan();">
+        <label for="networkRange">Digite o IP ou faixa de rede para escanear os dispositivos conectados:</label>
+        <input
+          type="text"
+          id="networkRange"
+          name="networkRange"
+          placeholder="Ex: 192.168.0.0/24"
+          required
+          pattern="^[a-zA-Z0-9\.\-/:]+$"
+          autocomplete="off"
+          aria-label="Faixa de rede para varredura"
+        >
+        <button type="submit" id="scanDevicesBtn" aria-controls="scanDevicesOutput">Executar varredura</button>
+      </form>
+
+      <noscript>
+        <p style="color:#f4b400">Javascript é necessário para executar a varredura interativa. Ative o JavaScript e recarregue a página.</p>
+      </noscript>
+
+      <pre id="scanDevicesOutput" aria-live="polite" role="status"></pre>
+    </section>
+
+    <!-- Seção 5: Aplicações e Relevância -->
+    <section class="section">
+      <h2>Aplicações e Relevância</h2>
+      <p>
+        O mapeamento de dispositivos conectados é uma etapa fundamental tanto em <strong>ambientes corporativos</strong> 
+        quanto em <strong>redes domésticas</strong>. Ele permite:
+      </p>
+      <ul>
+        <li>Monitorar a disponibilidade e o desempenho de equipamentos de rede;</li>
+        <li>Detectar conexões desconhecidas ou dispositivos não autorizados;</li>
+        <li>Planejar a expansão da infraestrutura com base no número de hosts ativos;</li>
+        <li>Investigar incidentes de segurança e falhas de conectividade.</li>
+      </ul>
+      <p>
+        Ao aplicar essas técnicas, o usuário desenvolve uma compreensão prática dos mecanismos de comunicação em rede 
+        e dos princípios de segurança digital relacionados à gestão de dispositivos conectados.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+  </footer>
+
+  <script>
+    async function runDeviceScan() {
+      const rangeInput = document.getElementById('networkRange');
+      const range = rangeInput.value.trim();
+      const out = document.getElementById('scanDevicesOutput');
+      const btn = document.getElementById('scanDevicesBtn');
+
+      if (!range) {
+        out.textContent = 'Informe uma faixa de rede válida.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = 'Escaneando...';
+      out.textContent = `Iniciando varredura em ${range}...\n`;
+
+      try {
+        const resp = await fetch(`/scan_devices?range=${encodeURIComponent(range)}`);
+        if (!resp.ok) {
+          const text = await resp.text().catch(() => '');
+          out.textContent += `Erro HTTP ${resp.status}: ${text || resp.statusText}\n`;
+          return;
+        }
+        const data = await resp.json();
+        if (data.status === 'ok') {
+          out.textContent += (data.output || data.saida || JSON.stringify(data, null, 2));
+        } else {
+          out.textContent += 'Erro: ' + (data.output || data.mensagem || 'Desconhecido');
+        }
+      } catch (err) {
+        out.textContent += 'Falha na requisição: ' + (err && err.message ? err.message : String(err));
+      } finally {
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = 'Executar varredura';
+      }
+    }
+
+    document.getElementById('networkRange').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        runDeviceScan();
+      }
+    });
+  </script>
+</body>
+</html>

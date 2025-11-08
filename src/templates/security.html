@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Página de segurança e detecção de ameaças — NetLab.">
+  <title>Security — Segurança e Detecção</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <!-- Barra lateral -->
+  <div class="sidebar">
+    <h2>Menu</h2>
+    <a href="/">Página Inicial</a>
+    <a href="/ports">Portas e Protocolos</a>
+    <a href="/devices">Dispositivos Conectados</a>
+    <a href="/security" class="active">Segurança e Detecção</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+
+  <header>
+    <h1>Segurança e Detecção</h1>
+  </header>
+
+  <main class="content">
+    <!--Introdução e objetivo-->
+    <section class="section">
+  <h2>Detecção de Ameaças e Análise de Tráfego</h2>
+  <p>
+    A detecção de ameaças em redes é um processo essencial para compreender o comportamento do tráfego e identificar atividades potencialmente maliciosas. 
+    Por meio da captura e análise de pacotes, é possível observar o fluxo de dados que circula entre dispositivos e detectar padrões que indicam 
+    varreduras, tentativas de acesso não autorizado ou uso indevido dos recursos da rede.
+  </p>
+  <p>
+    Nesta página, o usuário pode acompanhar, de forma prática, como ocorre a <strong>análise de tráfego em tempo real</strong> e como regras simples de 
+    detecção podem sinalizar comportamentos suspeitos. Essa abordagem demonstra, de forma didática, os princípios fundamentais por trás de um 
+    <strong>Sistema de Detecção de Intrusões (IDS)</strong>, tecnologia amplamente utilizada em ambientes corporativos para monitorar e proteger redes contra ataques.
+  </p>
+  <p>
+    Ao interagir com as ferramentas disponíveis, é possível compreender a importância do monitoramento contínuo e o papel das análises automatizadas na 
+    identificação de anomalias, fornecendo uma base prática para o estudo da segurança em redes de computadores.
+  </p>
+</section>
+
+
+    <section class="section">
+  <h2>Ferramentas Utilizadas</h2>
+  <ul>
+    <li>
+      <strong>Scapy:</strong> principal ferramenta utilizada nesta página para a <strong>captura e análise de pacotes de rede</strong>. 
+      Permite observar o tráfego em tempo real, identificar protocolos utilizados, endereços de origem e destino, e tipos de pacotes trocados. 
+      É amplamente usada em pesquisas, testes de segurança e aprendizado sobre camadas de rede.
+    </li>
+  </ul>
+  <p>
+    O uso dessa ferramenta permite demonstrar, de forma prática, como softwares profissionais de análise de tráfego 
+    operam, tornando mais acessível a compreensão sobre protocolos de comunicação, inspeção de pacotes e monitoramento de redes.
+  </p>
+</section>
+
+
+    <!--O que será experimentado-->
+    <section class="section">
+      <h2>O que será experimentado</h2>
+      <p>
+        No experimento você iniciará uma captura controlada de pacotes por um intervalo curto (ex.: 10 segundos). O sistema analisará os pacotes coletados e aplicará regras simples de detecção.
+        Ao final, serão exibidos:
+      </p>
+      <ul>
+        <li>Resumo dos endereços fonte mais frequentes;</li>
+        <li>Tipos de protocolos observados (TCP, UDP, ICMP);</li>
+        <li>Qualquer alerta gerado pelas regras (ex.: IPs com contagem anômala de pacotes).</li>
+      </ul>
+      <p>
+        Essa experiência permite entender como a análise imediata do tráfego pode evidenciar comportamentos atípicos e suportar investigações iniciais.
+      </p>
+    </section>
+
+    <!--Regras de detecção-->
+    <section class="section">
+      <h2>Regras de Detecção (simples)</h2>
+      <p>
+        As regras implementadas neste laboratório são propositalmente simples e têm caráter didático. Exemplos:
+      </p>
+      <ul>
+        <li><strong>Contagem por IP:</strong> se um único endereço enviar mais de N pacotes no período de captura, gera alerta (indicador possível de DoS/scan).</li>
+        <li><strong>Port scan rápido:</strong> múltiplas tentativas de conexão a portas distintas num intervalo curto sugerem varredura de portas.</li>
+        <li><strong>Pacotes ICMP em excesso:</strong> fluxo anormal de ICMP pode indicar varredura ou diagnóstico malicioso.</li>
+      </ul>
+      <p>
+        Essas regras não substituem assinaturas complexas, mas são eficazes para demonstrar o funcionamento básico de um sistema de detecção e para ensinar como correlacionar eventos.
+      </p>
+    </section>
+
+    <!--Experimente-->
+    <section class="section card-experimente">
+      <h2>Experimente</h2>
+      <p>
+        Clique no botão abaixo para iniciar uma captura de pacotes controlada (10 segundos). Aguarde o processamento e visualize os resultados no painel de saída.
+        A captura é executada no backend e um resumo seguro será retornado ao navegador.
+      </p>
+
+      <button id="btnCapture" onclick="captureSecurity()">Iniciar Captura (10s)</button>
+
+      <noscript>
+        <p style="color:#f4b400">Javascript é necessário para executar a captura interativa. Ative o JavaScript e recarregue a página.</p>
+      </noscript>
+
+      <pre id="securityOutput" aria-live="polite" role="status"></pre>
+    </section>
+
+    <!--Logs e relatórios-->
+    <section class="section">
+      <h2>Logs e Relatórios</h2>
+      <p>
+        Após cada captura, o backend pode registrar um resumo em log (dependendo da configuração). Os itens que normalmente são armazenados incluem:
+      </p>
+      <ul>
+        <li>Timestamp da captura;</li>
+        <li>Contagem de pacotes por IP fonte;</li>
+        <li>Alertas gerados pela aplicação das regras;</li>
+        <li>Resumo dos protocolos observados.</li>
+      </ul>
+      <p>
+        Esses registros servem como ponto de partida para investigações posteriores e para fins de auditoria didática no contexto do NetLab.
+      </p>
+    </section>
+
+    <!--Boas práticas e ética-->
+    <section class="section">
+      <h2>Boas práticas e ética</h2>
+      <p>
+        Antes de executar capturas ou varreduras, confirme que você tem permissão para realizar testes na rede alvo. Mesmo em ambiente acadêmico, respeite as seguintes recomendações:
+      </p>
+      <ul>
+        <li>Execute testes apenas em redes sob seu controle ou com autorização explícita;</li>
+        <li>Evite exposição desnecessária de dados sensíveis — o NetLab apresenta apenas resumos para reduzir riscos;</li>
+        <li>Documente as ações e resultados para reprodução e análise ética.</li>
+      </ul>
+    </section>
+
+    <!--Referências e leitura complementar-->
+    <section class="section">
+      <h2>Referências e Leitura</h2>
+      <ul>
+        <li>Nmap &amp; Network Scanning — documentação oficial.</li>
+        <li>Scapy — documentação e tutoriais para captura/análise de pacotes.</li>
+        <li>Guia introdutório de IDS/IPS — artigos acadêmicos e tutoriais básicos.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+  </footer>
+
+  <script>
+    async function captureSecurity() {
+      const out = document.getElementById('securityOutput');
+      const btn = document.getElementById('btnCapture');
+
+      out.textContent = '';
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = 'Capturando...';
+
+      try {
+        const resp = await fetch('/security_capture');
+        if (!resp.ok) {
+          const txt = await resp.text().catch(() => resp.statusText);
+          out.textContent = `Erro HTTP ${resp.status}: ${txt}`;
+          return;
+        }
+
+        const data = await resp.json();
+
+        // Formata a resposta de forma legível
+        if (data.status === 'ok') {
+          const alerts = data.alerts || [];
+          const summary = data.summary || null;
+
+          if (alerts.length) {
+            out.textContent += '⚠️ Alertas detectados:\n';
+            alerts.forEach(a => out.textContent += `- ${a}\n`);
+            out.textContent += '\n';
+          } else {
+            out.textContent += 'Nenhum alerta detectado.\n\n';
+          }
+
+          if (summary) {
+            out.textContent += 'Resumo da captura:\n';
+            out.textContent += JSON.stringify(summary, null, 2) + '\n';
+          } else if (data.packets) {
+            out.textContent += 'Dados brutos (parciais):\n';
+            out.textContent += JSON.stringify(data.packets, null, 2) + '\n';
+          }
+        } else {
+          out.textContent = 'Erro: ' + (data.mensagem || JSON.stringify(data));
+        }
+      } catch (err) {
+        out.textContent = 'Falha na requisição: ' + (err && err.message ? err.message : String(err));
+      } finally {
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = 'Iniciar Captura (10s)';
+      }
+    }
+  </script>
+</body>
+</html>

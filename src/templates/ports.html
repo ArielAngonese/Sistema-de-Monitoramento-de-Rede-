@@ -11,16 +11,19 @@
 <body>
   <!-- Barra lateral -->
   <div class="sidebar">
-  <h2>Menu</h2>
-  <a href="/">Dashboard</a>
-  <a href="/ports" class="active">Portas e Protocolos</a>
+    <h2>Menu</h2>
+    <a href="/">Página Inicial</a>
+    <a href="/ports" class="active">Portas e Protocolos</a>
+    <a href="/devices">Dispositivos Conectados</a>
+    <a href="/security">Segurança e Detecção</a>
+    <a href="/dashboard">Dashboard</a>
   </div>
 
   <header>
     <h1>Portas e Protocolos</h1>
   </header>
 
-   <main class="content">
+  <main class="content">
     <!-- Seção 1: IP e Portas -->
     <section class="section">
       <h2>Funcionamento de Endereços IP, Portas e Protocolos de Transporte</h2>
@@ -96,23 +99,72 @@
       <h3>Principais portas e suas utilidades:</h3>
       <table class="table-ports" role="table">
         <thead>
-          <tr><th scope="col">Porta</th><th scope="col">Protocolo</th><th scope="col">Uso Comum</th></tr>
+          <tr>
+            <th scope="col">Porta</th>
+            <th scope="col">Protocolo</th>
+            <th scope="col">Uso Comum</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>20 / 21</td><td>FTP</td><td>Transferência de arquivos</td></tr>
-          <tr><td>22</td><td>SSH</td><td>Acesso remoto seguro</td></tr>
-          <tr><td>25</td><td>SMTP</td><td>Envio de e-mails</td></tr>
-          <tr><td>53</td><td>DNS</td><td>Resolução de nomes de domínio</td></tr>
-          <tr><td>80</td><td>HTTP</td><td>Tráfego web não criptografado</td></tr>
-          <tr><td>443</td><td>HTTPS</td><td>Tráfego web seguro</td></tr>
+          <tr>
+            <td>20 / 21</td>
+            <td>FTP</td>
+            <td>Transferência de arquivos</td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td>SSH</td>
+            <td>Acesso remoto seguro</td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td>SMTP</td>
+            <td>Envio de e-mails</td>
+          </tr>
+          <tr>
+            <td>53</td>
+            <td>DNS</td>
+            <td>Resolução de nomes de domínio</td>
+          </tr>
+          <tr>
+            <td>80</td>
+            <td>HTTP</td>
+            <td>Tráfego web não criptografado</td>
+          </tr>
+          <tr>
+            <td>443</td>
+            <td>HTTPS</td>
+            <td>Tráfego web seguro</td>
+          </tr>
         </tbody>
       </table>
     </section>
 
-    <!-- Seção 6: Experimente -->
+    <!-- Seção 6: Ferramenta Utilizada -->
+    <section class="section">
+      <h2>Ferramenta Utilizada</h2>
+      <ul>
+        <li>
+          <strong>Nmap (Network Mapper):</strong> principal ferramenta utilizada nesta página para realizar a <strong>varredura de portas</strong>. 
+          É responsável por identificar quais serviços estão sendo executados em um host e por meio de quais portas TCP ou UDP. 
+          Essa técnica é amplamente utilizada em auditorias de segurança e administração de redes para mapear os pontos de acesso de um sistema.
+        </li>
+      </ul>
+      <p>
+        No contexto deste projeto, o Nmap é executado no backend por meio do Flask, e o resultado da varredura é exibido dinamicamente no navegador. 
+        Assim, o usuário pode compreender, na prática, como ferramentas profissionais de análise de rede operam, observando o retorno detalhado de cada porta escaneada.
+      </p>
+    </section>
+
+    <!-- Seção 7: Experimente -->
     <section class="section card-experimente">
       <h2>Experimente</h2>
-
+      <p>
+        Abaixo, você pode realizar uma <strong>varredura de portas</strong> em um endereço IP ou nome de host. 
+        Essa funcionalidade permite identificar quais portas estão abertas e quais serviços estão ativos no destino informado, 
+        simulando o processo utilizado por administradores de rede e analistas de segurança para mapear sistemas. 
+        Experimente inserir, por exemplo, <code>localhost</code> ou o IP de outro dispositivo da rede para observar os resultados.
+      </p>
       <form id="scanForm" onsubmit="event.preventDefault(); runPortScan();">
         <label for="targetHost">Digite um IP ou nome de host e veja quais portas estão abertas nesse sistema:</label>
         <input
@@ -123,7 +175,6 @@
           required
           pattern="^[a-zA-Z0-9\.\-:]+$"
           autocomplete="off"
-          autofocus
           aria-label="Host para varredura (IP ou domínio)"
         >
         <button type="submit" id="scanBtn" aria-controls="scanOutput">Executar varredura</button>
@@ -135,62 +186,81 @@
 
       <pre id="scanOutput" aria-live="polite" role="status"></pre>
     </section>
+
+    <!-- Seção 8: Aplicações e Relevância -->
+    <section class="section">
+      <h2>Aplicações e Relevância</h2>
+      <p>
+        A varredura de portas é uma prática essencial tanto para <strong>administração de redes</strong> quanto para <strong>auditorias de segurança</strong>. 
+        Ela possibilita identificar os serviços ativos em um sistema e compreender como os dispositivos se comunicam dentro de um ambiente conectado.
+      </p>
+      <ul>
+        <li>Detectar serviços expostos e possíveis vulnerabilidades de acesso;</li>
+        <li>Verificar a configuração e eficiência de políticas de firewall;</li>
+        <li>Auditar a superfície de ataque de um host ou rede interna;</li>
+        <li>Compreender, na prática, a função das portas e protocolos nas camadas de transporte (TCP e UDP).</li>
+      </ul>
+      <p>
+        O domínio dessas técnicas é fundamental para estudantes e profissionais que buscam compreender os fundamentos da cibersegurança, 
+        pois permite visualizar a importância do controle de serviços e da segmentação de redes na proteção de sistemas modernos.
+      </p>
+    </section>
   </main>
 
   <footer>
-    <p>Projeto Integrador II — Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
   </footer>
 
   <script>
-  async function runPortScan() {
-    const hostInput = document.getElementById('targetHost');
-    const host = hostInput.value.trim();
-    const out = document.getElementById('scanOutput');
-    const btn = document.getElementById('scanBtn');
+    async function runPortScan() {
+      const hostInput = document.getElementById('targetHost');
+      const host = hostInput.value.trim();
+      const out = document.getElementById('scanOutput');
+      const btn = document.getElementById('scanBtn');
 
-    if (!host) {
-      out.textContent = 'Informe um host válido.';
-      return;
-    }
-
-    btn.disabled = true;
-    btn.setAttribute('aria-busy', 'true');
-    btn.textContent = 'Escaneando...';
-    out.textContent = `Iniciando varredura em ${host}...\n`;
-
-    try {
-      const resp = await fetch(`/scan?target=${encodeURIComponent(host)}`);
-      // Verifica status HTTP antes de parsear JSON
-      if (!resp.ok) {
-        const text = await resp.text().catch(() => '');
-        out.textContent += `Erro HTTP ${resp.status}: ${text || resp.statusText}\n`;
+      if (!host) {
+        out.textContent = 'Informe um host válido.';
         return;
       }
 
-      const data = await resp.json();
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = 'Escaneando...';
+      out.textContent = `Iniciando varredura em ${host}...\n`;
 
-      if (data.status === 'ok') {
-        // Usa textContent para evitar XSS se backend enviar algo inesperado
-        out.textContent += (data.output || data.saida || JSON.stringify(data, null, 2));
-      } else {
-        out.textContent += 'Erro: ' + (data.output || data.mensagem || 'Desconhecido');
+      try {
+        const resp = await fetch(`/scan?target=${encodeURIComponent(host)}`);
+        // Verifica status HTTP antes de parsear JSON
+        if (!resp.ok) {
+          const text = await resp.text().catch(() => '');
+          out.textContent += `Erro HTTP ${resp.status}: ${text || resp.statusText}\n`;
+          return;
+        }
+
+        const data = await resp.json();
+
+        if (data.status === 'ok') {
+          // Usa textContent para evitar XSS se backend enviar algo inesperado
+          out.textContent += (data.output || data.saida || JSON.stringify(data, null, 2));
+        } else {
+          out.textContent += 'Erro: ' + (data.output || data.mensagem || 'Desconhecido');
+        }
+      } catch (err) {
+        out.textContent += 'Falha na requisição: ' + (err && err.message ? err.message : String(err));
+      } finally {
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = 'Executar varredura';
       }
-    } catch (err) {
-      out.textContent += 'Falha na requisição: ' + (err && err.message ? err.message : String(err));
-    } finally {
-      btn.disabled = false;
-      btn.removeAttribute('aria-busy');
-      btn.textContent = 'Executar varredura';
     }
-  }
 
-  // Habilita Enter no input para submeter o formulário
-  document.getElementById('targetHost').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      runPortScan();
-    }
-  });
+    // Habilita Enter no input para submeter o formulário
+    document.getElementById('targetHost').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        runPortScan();
+      }
+    });
   </script>
 </body>
 </html>

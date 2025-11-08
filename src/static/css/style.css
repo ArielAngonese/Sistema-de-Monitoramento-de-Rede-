@@ -14,7 +14,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 30px;
-    margin-left: 220px; /* compensar sidebar */
+    margin-left: 220px; /* Compensar sidebar */
 }
 
 h1 {
@@ -28,6 +28,13 @@ h2 {
     margin-bottom: 12px;
 }
 
+#target {
+    margin-bottom: 10px; /* Cria espaço entre o campo e o botão */
+}
+
+#networkRange {
+    margin-bottom: 10px; /* Cria espaço entre o campo e o botão */
+}
 /* ===========================
    CONTEÚDO E SEÇÕES
 =========================== */
@@ -174,9 +181,6 @@ pre {
 /* ===========================
    AJUSTE DOS GRÁFICOS
 =========================== */
-/* ===========================
-   AJUSTE DOS GRÁFICOS
-=========================== */
 .section canvas {
     display: block;
     width: 90% !important;     
@@ -196,7 +200,7 @@ pre {
     top: 0;
     left: 0;
     height: 100%;
-    width: 200px;
+    width: 239px;
     background-color: #1b1f25;
     display: flex;
     flex-direction: column;
@@ -235,7 +239,7 @@ pre {
     color: #fff;
     transform: scale(1.05);
 }
-}
+
 
 /* ===========================
    FOOTER
@@ -245,8 +249,10 @@ footer {
     margin-top: 30px;
     color: #aaa;
     width: 100%;
-    display: block;
-    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    position: static;
     display: block;
 }
 

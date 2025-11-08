@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard — NetLab - Plataforma Interativa de Cibersegurança Aplicada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- Barra lateral -->
+  <div class="sidebar">
+    <h2>Menu</h2>
+    <a href="/">Página Inicial</a>
+    <a href="/ports">Portas e Protocolos</a>
+    <a href="/devices">Dispositivos Conectados</a>
+    <a href="/security">Segurança e Detecção</a>
+    <a href="/dashboard" class="active">Dashboard</a>
+  </div>
+
+  <!-- Banners de alerta -->
+  <div id="alertBannerCpu" class="alert-banner" aria-live="polite" role="status"></div>
+  <div id="alertBannerMem" class="alert-banner" aria-live="polite" role="status"></div>
+
+  <header>
+    <h1>NetLab — Plataforma Interativa de Cibersegurança Aplicada</h1>
+  </header>
+
+  <main class="content">
+    <!-- Seção 1: Introdução ao Dashboard -->
+    <section class="section">
+      <h2>Sobre o Dashboard</h2>
+      <p>
+        Esta página apresenta o <strong>Dashboard do NetLab</strong>, uma ferramenta central da plataforma que permite acompanhar em tempo real o desempenho do sistema e o tráfego de rede. 
+        O dashboard reúne gráficos e controles que facilitam a visualização dos principais indicadores de uso de CPU, memória e rede, além de oferecer funcionalidades para varredura de portas e análise de pacotes.
+      </p>
+      <p>
+        Ao utilizar este painel, o usuário pode identificar rapidamente situações de sobrecarga, gargalos ou comportamentos anômalos, contribuindo para a tomada de decisões e para a segurança do ambiente monitorado. 
+        Esta interface é fundamental para o trabalho, pois integra as principais métricas e ferramentas de diagnóstico em um único local, tornando o monitoramento mais eficiente e acessível.
+      </p>
+    </section>
+
+    <!-- Seção 2: Controles -->
+    <section class="section controls-section">
+      <h2>Controles</h2>
+      <div class="controls">
+        <button id="btnPause" onclick="togglePause()">Pausar</button>
+        <button id="btnReset" onclick="resetCharts()">Resetar Gráficos</button>
+        <div class="thresholds">
+          <label>Limite CPU:
+            <input id="thrCpu" type="number" min="1" max="100" value="80">
+          </label>
+          <label>Limite Memória:
+            <input id="thrMem" type="number" min="1" max="100" value="80">
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 3: Status do Sistema (CPU e Memória) -->
+    <section class="section">
+      <h2>Status do Sistema</h2>
+      <canvas id="graficoCPU"></canvas>
+      <canvas id="graficoMemoria"></canvas>
+
+      <div class="grafico-explicacao">
+        <h3>Sobre CPU e Memória</h3>
+        <p>
+          Esses gráficos apresentam, em tempo real, o comportamento do processador e da memória RAM do sistema. 
+          O monitoramento contínuo dessas métricas permite observar o nível de utilização dos recursos locais, identificando padrões de carga, picos de uso e possíveis gargalos de desempenho.
+        </p>
+        <p>
+          A análise dessas informações auxilia na detecção de processos que consomem recursos excessivos, na avaliação da eficiência do sistema e na prevenção de falhas decorrentes de sobrecarga. 
+          Dessa forma, o usuário pode compreender melhor a relação entre o tráfego de rede e o impacto no desempenho do dispositivo, garantindo uma visão mais completa do ambiente monitorado.
+        </p>
+      </div>
+    </section>
+
+    <!-- Seção 4: Tráfego de Rede -->
+    <section class="section">
+      <h2>Tráfego de Rede (KB/s)</h2>
+      <canvas id="graficoRede"></canvas>
+
+      <div class="grafico-explicacao">
+        <h3>Sobre o Tráfego de Rede</h3>
+        <p>
+          Esse gráfico exibe o volume de dados transmitidos e recebidos pela interface de rede em tempo real, permitindo acompanhar o comportamento do tráfego e identificar variações significativas na comunicação do sistema.
+        </p>
+        <p>
+          O monitoramento contínuo dessas métricas auxilia na detecção de picos de atividade, possíveis congestionamentos e indícios de anomalias, como transferências incomuns de dados ou conexões inesperadas. 
+          Com isso, o usuário pode compreender melhor o fluxo de informações na rede e avaliar o impacto do tráfego sobre o desempenho e a segurança do ambiente monitorado.
+        </p>
+      </div>
+    </section>
+
+    <!-- Seção 5: Varredura de Portas -->
+    <section class="section">
+      <h2>Varredura de Portas</h2>
+      <input type="text" id="target" placeholder="Ex: 192.168.0.1 ou localhost">
+      <button onclick="runScan()">Iniciar Scan</button>
+      <pre id="scanResult"></pre>
+    </section>
+
+    <!-- Seção 6: Análise de Pacotes -->
+    <section class="section">
+      <h2>Análise de Pacotes</h2>
+      <button onclick="capturePackets()">Capturar Pacotes (10s)</button>
+      <pre id="packetResult"></pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

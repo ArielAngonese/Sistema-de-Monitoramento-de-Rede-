@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>NetLab — Plataforma Interativa de Cibersegurança Aplicada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <!-- Barra lateral -->
+  <div class="sidebar">
+  <h2>Menu</h2>
+  <a href="/" class="active">Página Inicial</a>
+  <a href="/ports">Portas e Protocolos</a>
+  <a href="/devices">Dispositivos Conectados</a>
+  <a href="/security">Segurança e Detecção</a>
+  <a href="/dashboard">Dashboard</a>
+  </div>
+
+  <header>
+    <h1>NetLab — Plataforma Interativa de Cibersegurança Aplicada</h1>
+  </header>
+
+  <main class="content">
+    <!-- Seção 1: Objetivo do Projeto -->
+    <section class="section">
+      <h2>Bem-vindo ao NetLab</h2>
+      <p>
+        O NetLab é uma plataforma interativa de cibersegurança aplicada, que integra monitoramento de desempenho, conectividade e segurança de sistemas e redes em uma interface única e didática. 
+        O usuário pode acompanhar o funcionamento do sistema local, analisar o tráfego de rede, realizar varreduras de portas, capturar pacotes e acessar ferramentas essenciais para diagnóstico e aprendizado.
+      </p>
+    </section>
+
+    <!-- Seção 2: Portas e Protocolos -->
+    <section class="section">
+      <h2>Portas e Protocolos</h2>
+      <p>
+        Esta página detalha o funcionamento das portas de rede, sua classificação e os principais protocolos utilizados. 
+        O usuário pode visualizar as portas abertas e os serviços ativos, além de realizar:
+      </p>
+      <ul>
+        <li><strong>Varredura de Portas:</strong> Ferramenta prática para identificar portas vulneráveis e serviços expostos, auxiliando na análise de segurança.</li>
+      </ul>
+      <p>Ideal para quem deseja entender e proteger os pontos de entrada do sistema.</p>
+    </section>
+
+    <!-- Seção 3: Dispositivos Conectados -->
+    <section class="section">
+      <h2>Dispositivos Conectados</h2>
+      <p>
+        Permite listar todos os hosts conectados à rede e visualizar a topologia do ambiente. 
+        A ferramenta prática utilizada é:
+      </p>
+      <ul>
+        <li><strong>Scanner de Rede:</strong> Mapeia dispositivos ativos, identifica IPs e nomes de host, facilitando o gerenciamento e a detecção de intrusos.</li>
+      </ul>
+      <p>Fundamental para manter o controle e a segurança da rede local.</p>
+    </section>
+
+    <!-- Seção 4: Ferramentas -->
+    <section class="section">
+      <h2>Ferramentas</h2>
+      <p>Reúne utilitários para diagnóstico de rede, como:</p>
+      <ul>
+        <li><strong>Ping:</strong> Testa a conectividade entre dispositivos.</li>
+        <li><strong>DNS Lookup:</strong> Verifica resolução de nomes de domínio.</li>
+        <li><strong>Traceroute:</strong> Analisa o caminho dos pacotes até o destino.</li>
+      </ul>
+      <p>Essas ferramentas ajudam a identificar e solucionar problemas de comunicação e desempenho.</p>
+    </section>
+
+    <!-- Seção 5: Aprendizado -->
+    <section class="section">
+      <h2>Aprendizado</h2>
+      <p>
+        Oferece conteúdo didático sobre redes, protocolos, segurança e boas práticas. 
+        O usuário pode acessar:
+      </p>
+      <ul>
+        <li><strong>Guias e Tutoriais:</strong> Explicações detalhadas para aprimorar o conhecimento técnico.</li>
+        <li><strong>Exemplos Práticos:</strong> Demonstrações de uso das ferramentas e conceitos.</li>
+      </ul>
+      <p>Ideal para estudantes e profissionais que desejam aprofundar seus conhecimentos.</p>
+    </section>
+
+    <!-- Seção 6: Relatórios -->
+    <section class="section">
+      <h2>Relatórios</h2>
+      <p>
+        Centraliza os logs de varreduras, pacotes capturados e alertas recentes. 
+        A ferramenta prática permite:
+      </p>
+      <ul>
+        <li><strong>Visualização de Logs:</strong> Acompanhe o histórico de eventos, ações e resultados das análises realizadas no sistema.</li>
+      </ul>
+      <p>Essencial para auditoria, acompanhamento e melhoria contínua do ambiente monitorado.</p>
+    </section>
+
+    <!-- Seção 7: Dashboard -->
+    <section class="section">
+      <h2>Dashboard</h2>
+      <p>
+        O Dashboard é o centro de monitoramento do sistema. 
+        Ele exibe gráficos em tempo real do uso de CPU, memória e tráfego de rede, permitindo identificar rapidamente sobrecargas e gargalos. 
+        As ferramentas práticas disponíveis nesta página incluem:
+      </p>
+      <ul>
+        <li><strong>Varredura de Portas:</strong> Utiliza scanner de portas para identificar serviços ativos e potenciais vulnerabilidades.</li>
+        <li><strong>Análise de Pacotes:</strong> Captura e exibe pacotes de rede para inspeção de tráfego e diagnóstico de problemas.</li>
+      </ul>
+      <p>Essas ferramentas são essenciais para avaliar o desempenho e a segurança do sistema local.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+  </footer>
+</body>
+</html>
