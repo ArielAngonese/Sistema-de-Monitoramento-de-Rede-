@@ -16,6 +16,7 @@
     <a href="/ports">Portas e Protocolos</a>
     <a href="/devices">Dispositivos Conectados</a>
     <a href="/security" class="active">Segurança e Detecção</a>
+    <a href="/tools">Diagnóstico de Rede</a>
     <a href="/dashboard">Dashboard</a>
   </div>
 
@@ -59,13 +60,12 @@
   </p>
 </section>
 
-
     <!--O que será experimentado-->
     <section class="section">
-      <h2>O que será experimentado</h2>
+      <h2>O Que Será Experimentado</h2>
       <p>
-        No experimento você iniciará uma captura controlada de pacotes por um intervalo curto (ex.: 10 segundos). O sistema analisará os pacotes coletados e aplicará regras simples de detecção.
-        Ao final, serão exibidos:
+        No experimento você iniciará uma captura controlada de pacotes por um intervalo curto (10 segundos). O sistema analisará os pacotes coletados e caso algo suspeito seja detectado,
+        ao final, serão exibidos:
       </p>
       <ul>
         <li>Resumo dos endereços fonte mais frequentes;</li>
@@ -77,9 +77,127 @@
       </p>
     </section>
 
+    <!--Experimente-->
+    <section class="section card-experimente">
+      <h2>Experimente</h2>
+      <p>
+        Clique no botão abaixo para iniciar uma captura de pacotes controlada (10 segundos). Aguarde o processamento e visualize os resultados no painel de saída.
+      </p>
+
+      <button id="btnCapture" onclick="captureSecurity()">Iniciar Captura (10s)</button>
+
+      <noscript>
+        <p style="color:#f4b400">Javascript é necessário para executar a captura interativa. Ative o JavaScript e recarregue a página.</p>
+      </noscript>
+      <pre id="securityOutput" aria-live="polite" role="status"></pre>
+      
+    </section>
+
+    <!-- Sessão: Simulação de Ataque -->
+    <section class="section card-experimente">
+        <h2>Simulação de Ataque DDoS</h2>
+        <p>Utilize o botão abaixo para simular um ataque DDoS e visualizar como o sistema detecta tráfego anômalo, uma vez que na maioria dos casos em que você executar a captura acima,
+          nada será detectado. Caso o sistema detectasse algum ataque, os alertas seriam exibitos dessa maneira. OBS.: nenhuma das informações abaixo são reais, são apenas exemplos educativos.
+        </p>
+        <button id="simulateBtn">Simular ataque DDoS</button>
+        <pre id="simulateResult" aria-live="polite" role="status"></pre>
+    </section>
+    
+    <script>
+  document.getElementById('simulateBtn').addEventListener('click', async function() {
+    const btn = this;
+    const out = document.getElementById('simulateResult');
+    btn.disabled = true;
+    btn.textContent = 'Simulando...';
+    out.textContent = '';
+    try {
+      const resp = await fetch('/security_simulate_ddos');
+      if (!resp.ok) {
+        out.textContent = 'Erro na simulação: ' + resp.statusText;
+        return;
+      }
+      const data = await resp.json();
+      if (data.status === 'ok') {
+        out.textContent = (data.alerts && data.alerts.length) ? data.alerts.join('\n') : 'Nenhum ataque detectado.';
+      } else {
+        out.textContent = data.mensagem || 'Erro desconhecido.';
+      }
+    } catch (err) {
+      out.textContent = 'Falha na requisição: ' + (err && err.message ? err.message : String(err));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Simular ataque DDoS';
+    }
+  });
+
+  // Função para captura de pacotes e preenchimento do painel
+  async function captureSecurity() {
+    const btn = document.getElementById('btnCapture');
+    const out = document.getElementById('securityOutput');
+    const ipList = document.getElementById('ipList');
+    const protoList = document.getElementById('protoList');
+    const alertList = document.getElementById('alertList');
+    btn.disabled = true;
+    btn.textContent = 'Capturando...';
+    out.textContent = '';
+    ipList.innerHTML = '';
+    protoList.innerHTML = '';
+    alertList.innerHTML = '';
+    try {
+      const resp = await fetch('/security_capture');
+      if (!resp.ok) {
+        out.textContent = 'Erro na captura: ' + resp.statusText;
+        return;
+      }
+      const data = await resp.json();
+      // Exibe alertas
+      if (data.alerts && Array.isArray(data.alerts)) {
+        data.alerts.forEach(a => {
+          const li = document.createElement('li');
+          li.textContent = a;
+          alertList.appendChild(li);
+        });
+      } else {
+        const li = document.createElement('li');
+        li.textContent = 'Nenhum alerta gerado.';
+        alertList.appendChild(li);
+      }
+      // Exibe IPs mais frequentes
+      if (data.ip_summary && Array.isArray(data.ip_summary)) {
+        data.ip_summary.forEach(ip => {
+          const li = document.createElement('li');
+          li.textContent = ip;
+          ipList.appendChild(li);
+        });
+      } else {
+        const li = document.createElement('li');
+        li.textContent = 'Nenhum IP detectado.';
+        ipList.appendChild(li);
+      }
+      // Exibe protocolos
+      if (data.protocols && Array.isArray(data.protocols)) {
+        data.protocols.forEach(proto => {
+          const li = document.createElement('li');
+          li.textContent = proto;
+          protoList.appendChild(li);
+        });
+      } else {
+        const li = document.createElement('li');
+        li.textContent = 'Nenhum protocolo detectado.';
+        protoList.appendChild(li);
+      }
+    } catch (err) {
+      out.textContent = 'Falha na requisição: ' + (err && err.message ? err.message : String(err));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Iniciar Captura (10s)';
+    }
+  }
+    </script>
+
     <!--Regras de detecção-->
     <section class="section">
-      <h2>Regras de Detecção (simples)</h2>
+      <h2>Regras de Detecção</h2>
       <p>
         As regras implementadas neste laboratório são propositalmente simples e têm caráter didático. Exemplos:
       </p>
@@ -91,63 +209,6 @@
       <p>
         Essas regras não substituem assinaturas complexas, mas são eficazes para demonstrar o funcionamento básico de um sistema de detecção e para ensinar como correlacionar eventos.
       </p>
-    </section>
-
-    <!--Experimente-->
-    <section class="section card-experimente">
-      <h2>Experimente</h2>
-      <p>
-        Clique no botão abaixo para iniciar uma captura de pacotes controlada (10 segundos). Aguarde o processamento e visualize os resultados no painel de saída.
-        A captura é executada no backend e um resumo seguro será retornado ao navegador.
-      </p>
-
-      <button id="btnCapture" onclick="captureSecurity()">Iniciar Captura (10s)</button>
-
-      <noscript>
-        <p style="color:#f4b400">Javascript é necessário para executar a captura interativa. Ative o JavaScript e recarregue a página.</p>
-      </noscript>
-
-      <pre id="securityOutput" aria-live="polite" role="status"></pre>
-    </section>
-
-    <!--Logs e relatórios-->
-    <section class="section">
-      <h2>Logs e Relatórios</h2>
-      <p>
-        Após cada captura, o backend pode registrar um resumo em log (dependendo da configuração). Os itens que normalmente são armazenados incluem:
-      </p>
-      <ul>
-        <li>Timestamp da captura;</li>
-        <li>Contagem de pacotes por IP fonte;</li>
-        <li>Alertas gerados pela aplicação das regras;</li>
-        <li>Resumo dos protocolos observados.</li>
-      </ul>
-      <p>
-        Esses registros servem como ponto de partida para investigações posteriores e para fins de auditoria didática no contexto do NetLab.
-      </p>
-    </section>
-
-    <!--Boas práticas e ética-->
-    <section class="section">
-      <h2>Boas práticas e ética</h2>
-      <p>
-        Antes de executar capturas ou varreduras, confirme que você tem permissão para realizar testes na rede alvo. Mesmo em ambiente acadêmico, respeite as seguintes recomendações:
-      </p>
-      <ul>
-        <li>Execute testes apenas em redes sob seu controle ou com autorização explícita;</li>
-        <li>Evite exposição desnecessária de dados sensíveis — o NetLab apresenta apenas resumos para reduzir riscos;</li>
-        <li>Documente as ações e resultados para reprodução e análise ética.</li>
-      </ul>
-    </section>
-
-    <!--Referências e leitura complementar-->
-    <section class="section">
-      <h2>Referências e Leitura</h2>
-      <ul>
-        <li>Nmap &amp; Network Scanning — documentação oficial.</li>
-        <li>Scapy — documentação e tutoriais para captura/análise de pacotes.</li>
-        <li>Guia introdutório de IDS/IPS — artigos acadêmicos e tutoriais básicos.</li>
-      </ul>
     </section>
   </main>
 
@@ -181,7 +242,7 @@
           const summary = data.summary || null;
 
           if (alerts.length) {
-            out.textContent += '⚠️ Alertas detectados:\n';
+            out.textContent += 'Alertas detectados:\n';
             alerts.forEach(a => out.textContent += `- ${a}\n`);
             out.textContent += '\n';
           } else {

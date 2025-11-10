@@ -223,6 +223,74 @@ async function capturePackets() {
     }
 }
 
+// ===============================
+//  Ferramentas — Tools Page
+// ===============================
+
+// --- Função: Ping ---
+async function runPing() {
+  const input = document.getElementById("pingTarget");
+  const target = input.value.trim();
+  const output = document.getElementById("pingOutput");
+  const btn = document.getElementById("pingBtn");
+
+  if (!target) {
+    output.textContent = "Informe um host ou IP para realizar o teste de ping.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.setAttribute("aria-busy", "true");
+  btn.textContent = "Testando...";
+  output.textContent = `Executando ping em ${target}...\n`;
+
+  try {
+    const resp = await fetch(`/ping?target=${encodeURIComponent(target)}`);
+    const data = await resp.json();
+    output.textContent += data.output || "Nenhum resultado retornado.";
+  } catch (err) {
+    output.textContent += "Erro: " + (err.message || String(err));
+  } finally {
+    btn.disabled = false;
+    btn.removeAttribute("aria-busy");
+    btn.textContent = "Executar Ping";
+  }
+}
+
+// --- Traceroute ---
+async function runTraceroute() {
+  const target = document.getElementById('traceTarget').value.trim();
+  const output = document.getElementById('traceOutput');
+  if (!target) return (output.textContent = "Informe um host válido.");
+
+  output.textContent = `Executando traceroute em ${target}...\n`;
+  try {
+    const resp = await fetch(`/traceroute?target=${encodeURIComponent(target)}`);
+    const data = await resp.json();
+    output.textContent += data.output || "Sem resposta.";
+  } catch (e) {
+    output.textContent += "Erro ao executar traceroute: " + e.message;
+  }
+}
+
+// --- DNS Lookup ---
+async function runDNSLookup() {
+  const domain = document.getElementById('dnsTarget').value.trim();
+  const output = document.getElementById('dnsOutput');
+  if (!domain) return (output.textContent = "Informe um domínio válido.");
+
+  output.textContent = `Consultando DNS para ${domain}...\n`;
+  try {
+    // IMPORTANTE: aqui o parâmetro é "domain" (não "target")
+    const resp = await fetch(`/dns_lookup?domain=${encodeURIComponent(domain)}`);
+    const data = await resp.json();
+    output.textContent += data.output || "Nenhum resultado encontrado.";
+  } catch (e) {
+    output.textContent += "Erro ao consultar DNS: " + e.message;
+  }
+}
+
+
 // ===========================
 // Inicialização automática
 // ===========================

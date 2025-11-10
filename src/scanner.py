@@ -10,6 +10,7 @@ def check_nmap():
     from shutil import which
     return which("nmap") is not None
 
+
 def scan_ports(target: str):
     if not target or not isinstance(target, str):
         return {"status": "erro", "mensagem": "Alvo inválido."}
@@ -28,19 +29,43 @@ def scan_ports(target: str):
     except Exception as e:
         return {"status": "erro", "mensagem": str(e)}
 
+
 def analyze_packets(timeout=5):
+    """Captura pacotes por alguns segundos e retorna lista de dicionários."""
     pacotes = []
 
     def packet_callback(packet: Packet):
-        pacotes.append(packet.summary())
+        try:
+            src = packet["IP"].src if packet.haslayer("IP") else None
+            dst = packet["IP"].dst if packet.haslayer("IP") else None
+
+            if packet.haslayer("TCP"):
+                proto = "TCP"
+            elif packet.haslayer("UDP"):
+                proto = "UDP"
+            elif packet.haslayer("ICMP"):
+                proto = "ICMP"
+            else:
+                proto = packet.lastlayer().name if hasattr(packet, "lastlayer") else "DESCONHECIDO"
+
+            pacotes.append({
+                "src": src,
+                "dst": dst,
+                "proto": proto,
+                "summary": packet.summary()
+            })
+        except Exception as e:
+            pacotes.append({"summary": f"Erro ao processar pacote: {e}"})
 
     try:
-        sniff(prn=packet_callback, timeout=timeout)
-        return pacotes[:50]
+        sniff(prn=packet_callback, timeout=timeout, store=0)
+        # retorna só os primeiros 100 para não sobrecarregar
+        return pacotes[:100] if pacotes else [{"info": "Nenhum pacote capturado."}]
     except PermissionError:
-        return ["Permissão negada: execute como administrador."]
+        return [{"error": "Permissão negada: execute como administrador ou root."}]
     except Exception as e:
-        return [f"Erro na captura: {str(e)}"]
+        return [{"error": f"Erro na captura: {str(e)}"}]
+
 
 def show_about():
     return {
@@ -64,4 +89,3 @@ def get_system_usage():
         "bytes_enviados": net_io.bytes_sent,
         "bytes_recebidos": net_io.bytes_recv
     }
-
