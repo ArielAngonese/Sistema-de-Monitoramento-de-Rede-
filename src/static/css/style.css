@@ -28,14 +28,16 @@ h2 {
     margin-bottom: 12px;
 }
 
-#target {
+/* ===========================
+   CAMPOS DE ENTRADA (PADRÃO)
+=========================== */
+#target,
+#networkRange,
+#pingTarget,
+#traceTarget,
+#dnsTarget {
     margin-bottom: 10px; /* Cria espaço entre o campo e o botão */
 }
-
-#networkRange {
-    margin-bottom: 10px; /* Cria espaço entre o campo e o botão */
-}
-
 /* ===========================
    CONTEÚDO E SEÇÕES
 =========================== */

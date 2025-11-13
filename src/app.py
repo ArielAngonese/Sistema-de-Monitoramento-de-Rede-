@@ -5,6 +5,89 @@ import scanner
 
 app = Flask(__name__)
 
+def traduzir(texto: str, traducoes: dict) -> str:
+    """Aplica traduções simples ignorando maiúsculas/minúsculas."""
+    for eng, pt in traducoes.items():
+        texto = re.sub(rf"\b{re.escape(eng)}\b", pt, texto, flags=re.IGNORECASE)
+    return texto
+
+TRAD_NMAP = {
+    "open": "Aberta",
+    "closed": "Fechada",
+    "filtered": "Filtrada",
+    "tcp": "TCP",
+    "udp": "UDP",
+    "PORT": "PORTA",
+    "STATE": "ESTADO",
+    "SERVICE": "SERVIÇO",
+    "Nmap scan report for": "Relatório de varredura Nmap para",
+    "Host is up": "Host está ativo",
+    "Not shown": "Não mostrado",
+    "TCP ports": "Portas TCP",
+    "All": "Todas",
+    "scanned": "varridos",
+    "Starting Nmap": "Iniciando Nmap",
+    "at": "em",
+    "latency": "latência",
+    "Nmap done": "Nmap concluído",
+    "IP address": "Endereço IP",
+    "host up": "host(s) ativo(s)",
+    "in": "em",
+    "seconds": "segundos",
+    "msrpc": "RPC da Microsoft",
+    "netbios-ssn": "Sessão NetBIOS",
+    "microsoft-ds": "Compartilhamento Microsoft",
+    "unknown": "desconhecido",
+    "conn-refused": "conexão recusada",
+    "no-response": "sem resposta",
+    "IP addresses": "Endereços IP",
+    "hosts up": "host(s) ativo(s)",
+    "Failed to fetch": "Falha ao buscar",
+    "MAC Address": "Endereço MAC"
+}
+
+TRAD_PING = {
+    "Pinging": "Pingando",
+    "with 32 bytes of data": "com 32 bytes de dados",
+    "Reply from": "Resposta de",
+    "time": "tempo",
+    "Ping statistics for": "Estatísticas de ping para",
+    "Packets: Sent": "Pacotes: Enviados",
+    "Received": "Recebidos",
+    "Lost": "Perdidos",
+    "Approximate round trip times in milli-seconds": "Tempos aproximados de ida e volta em milissegundos",
+    "loss": "perda",
+    "Minimum": "Mínimo",
+    "Maximum": "Máximo",
+    "Average": "Média",
+    "Failed to fetch": "Falha ao buscar",
+    "Ping request could not find host": "O pedido de ping não conseguiu encontrar o host",
+    "Please check the name and try again": "Por favor, verifique o nome e tente novamente"
+}
+
+TRAD_ROUTE = {
+    "Failed to fetch": "Falha ao buscar",
+    "Tracing route to": "Rastreando rota para",
+    "over a maximum of": "sobre um máximo de",
+    "hops": "saltos",
+    "Trace complete.": "Rastreamento completo.",
+    "Request timed out": "Tempo de solicitação esgotado"
+}
+
+TRAD_DNS = {
+    "Server": "Servidor",
+    "Address": "Endereço",
+    "Non-authoritative answer": "Resposta não autoritativa",
+    "Name": "Nome",
+    "Address": "Endereço",
+    "can't find": "não pode encontrar",
+    "try again": "tente novamente",
+    "Unknown host": "Host desconhecido,",
+    "Unknown server error": "Erro desconhecido do servidor",
+    "Unknown query type": "Tipo de consulta desconhecido",
+    "UnKnown": "Desconhecido",
+    "Failed to fetch": "Falha ao buscar"
+}
 @app.route('/')
 def inicial():
     return render_template('inicialPage.html')
@@ -48,9 +131,12 @@ def ping():
             capture_output=True, text=True, timeout=10
         )
 
+        output = result.stdout or result.stderr
+        output = traduzir(output, TRAD_PING)
+
         return jsonify({
             "status": "ok" if result.returncode == 0 else "erro",
-            "output": result.stdout or result.stderr
+            "output": output
         })
 
     except Exception as e:
@@ -76,6 +162,7 @@ def traceroute():
         )
 
         output = result.stdout or result.stderr or "Nenhuma resposta retornada."
+        output = traduzir(output, TRAD_ROUTE)
 
         return jsonify({
             "status": "ok" if result.returncode == 0 else "erro",
@@ -107,9 +194,13 @@ def dns_lookup():
             ["nslookup", target],
             capture_output=True, text=True, timeout=10
         )
+
+        output = result.stdout or result.stderr
+        output = traduzir(output, TRAD_DNS)
+
         return jsonify({
             "status": "ok" if result.returncode == 0 else "erro",
-            "output": result.stdout or result.stderr
+            "output": output
         })
     except Exception as e:
         return jsonify({"status": "erro", "output": str(e)}), 500
@@ -198,40 +289,6 @@ def system_data():
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
 
-
-def traduzir_nmap(output: str) -> str:
-    """Traduz termos técnicos do Nmap para português."""
-    traducoes = {
-        "open": "Aberta",
-        "closed": "Fechada",
-        "filtered": "Filtrada",
-        "tcp": "TCP",
-        "udp": "UDP",
-        "PORT": "PORTA",
-        "STATE": "ESTADO",
-        "SERVICE": "SERVIÇO",
-        "Nmap scan report for": "Relatório de varredura Nmap para",
-        "Host is up": "Host está ativo",
-        "Not shown": "Não mostrado",
-        "TCP ports": "Portas TCP",
-        "All": "Todas",
-        "scanned": "varridas",
-        "Starting Nmap": "Iniciando Nmap",
-        "at": "em",
-        "latency": "latência",
-        "Nmap done": "Nmap concluído",
-        "IP address": "Endereço IP",
-        "host up": "host(s) ativo(s)",
-        "in": "em",
-        "seconds": "segundos",
-        "msrpc": "RPC da Microsoft",
-        "netbios-ssn": "Sessão NetBIOS",
-        "microsoft-ds": "Compartilhamento Microsoft"
-    }
-    for eng, pt in traducoes.items():
-        output = re.sub(rf"\b{re.escape(eng)}\b", pt, output, flags=re.IGNORECASE)
-    return output
-
 @app.route('/scan')
 def scan():
     """Executa varredura de portas usando módulo interno scanner."""
@@ -244,7 +301,7 @@ def scan():
         output = result.get("saida", result.get("mensagem", "Nenhum resultado."))
 
         if isinstance(output, str):
-            output = traduzir_nmap(output)
+            output = traduzir(output, TRAD_NMAP)
 
         return jsonify({
             "status": result.get("status", "erro"),
@@ -277,7 +334,7 @@ def scan_devices():
             })
 
         # Traduz a saída para português
-        saida = traduzir_nmap(result.stdout)
+        saida = traduzir(result.stdout, TRAD_NMAP)
 
         # Pequena formatação visual opcional
         saida_formatada = re.sub(r"(Nmap scan report for [^\n]+)", r"\n\033[1m\1\033[0m", saida)
