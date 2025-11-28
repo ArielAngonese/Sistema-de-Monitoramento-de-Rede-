@@ -9,7 +9,6 @@
 </head>
 
 <body>
-  <body>
   <!-- Barra lateral -->
   <div class="sidebar">
     <h2>Menu</h2>
@@ -42,6 +41,100 @@
         infraestrutura de rede.
       </p>
     </section>
+
+    <!-- Seção: Teste de Ping -->
+<section class="section">
+  <h2>Teste de Ping</h2>
+  <p>
+    O teste de <strong>Ping</strong> é uma das ferramentas mais tradicionais e essenciais para diagnóstico de rede. 
+    Ele verifica se um host (IP ou domínio) está acessível e mede o tempo necessário para que os pacotes viajem 
+    até o destino e retornem ao emissor. O processo é realizado por meio do envio de mensagens 
+    <em>ICMP Echo Request</em> e da recepção das respostas <em>ICMP Echo Reply</em>.
+  </p>
+  <p>
+    No NetLab, o usuário pode inserir qualquer endereço de destino e visualizar a resposta em tempo real, 
+    incluindo informações como latência, estabilidade e eventuais perdas de pacotes. Esses dados são fundamentais 
+    para entender a qualidade da conexão e identificar falhas de comunicação.
+  </p>
+
+  <h3>O que o teste de Ping permite verificar:</h3>
+  <ul>
+    <li>Se o host está ativo e acessível na rede.</li>
+    <li>O tempo de resposta médio, mínimo e máximo.</li>
+    <li>A taxa de perda de pacotes.</li>
+    <li>Oscilações de latência que podem indicar congestionamento ou instabilidade.</li>
+  </ul>
+
+  <p>
+    O Ping é especialmente útil para identificar problemas como links instáveis, indisponibilidade de servidores 
+    ou rotas congestionadas. Por ser rápido e simples, é um dos testes mais importantes para verificações iniciais 
+    de conectividade.
+  </p>
+</section>
+
+
+<!-- Seção: Traceroute -->
+<section class="section">
+  <h2>Teste de Traceroute</h2>
+  <p>
+    O <strong>Traceroute</strong> permite descobrir o caminho completo que os pacotes percorrem até o destino, 
+    exibindo todos os roteadores intermediários (hops) entre a origem e o destino final. Para isso, o comando 
+    envia pacotes com valores de <em>TTL (Time to Live)</em> crescentes, e cada roteador que processa o pacote 
+    reduz esse valor e envia uma resposta ICMP indicando sua presença.
+  </p>
+  <p>
+    Dessa forma, o usuário consegue visualizar cada salto da rota, juntamente com o tempo de resposta individual 
+    de cada nó da rede. Isso torna o Traceroute uma ferramenta poderosa para analisar rotas lentas, gargalos, 
+    má distribuição de tráfego ou erros de roteamento.
+  </p>
+
+  <h3>O que o Traceroute permite verificar:</h3>
+  <ul>
+    <li>Quantos roteadores existem entre o dispositivo e o destino.</li>
+    <li>Quais são esses roteadores e seus respectivos endereços.</li>
+    <li>O tempo que cada salto leva para responder.</li>
+    <li>Pontos de latência elevada ou falhas ao longo do caminho.</li>
+    <li>Se o tráfego está sendo desviado para rotas inesperadas.</li>
+  </ul>
+
+  <p>
+    No NetLab, a execução do Traceroute permite acompanhar esse caminho diretamente pela interface, trazendo 
+    clareza sobre como os pacotes estão sendo roteados e facilitando a identificação de problemas complexos 
+    de infraestrutura e roteamento.
+  </p>
+</section>
+
+
+<!-- Seção: DNS Lookup -->
+<section class="section">
+  <h2>DNS Lookup</h2>
+  <p>
+    O <strong>DNS Lookup</strong> realiza consultas ao sistema de nomes de domínio (DNS), sendo responsável por 
+    converter nomes como <code>example.com</code> em seus respectivos endereços IP. Esse processo é fundamental 
+    para o funcionamento da internet, já que dispositivos não compreendem nomes — apenas números.
+  </p>
+  <p>
+    Quando o usuário executa uma consulta no NetLab, o sistema utiliza o comando <em>nslookup</em> para interagir 
+    com servidores DNS e retornar informações detalhadas da resolução, como endereços IPv4, IPv6 e dados 
+    adicionais sobre o domínio consultado.
+  </p>
+
+  <h3>O que o DNS Lookup permite verificar:</h3>
+  <ul>
+    <li>Se o domínio está corretamente configurado no DNS.</li>
+    <li>Quais endereços IP estão associados ao domínio.</li>
+    <li>Respostas autoritativas e não autoritativas.</li>
+    <li>Erros de resolução, como domínio inexistente ou falhas no servidor DNS.</li>
+    <li>Possíveis problemas de propagação ou inconsistências de DNS.</li>
+  </ul>
+
+  <p>
+    Essa ferramenta é indispensável para diagnosticar falhas relacionadas à resolução de nomes, lentidão no 
+    carregamento de sites, configurações incorretas de servidores DNS e problemas de propagação de registros. 
+    No NetLab, o DNS Lookup oferece uma forma rápida e clara de validar o funcionamento desse sistema.
+  </p>
+</section>
+
 
     <!-- Seção: Ferramentas Utilizadas -->
     <section class="section">
@@ -113,7 +206,7 @@
   </main>
 
   <footer>
-    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese e Emanuel Júlio Solivo</p>
   </footer>
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>

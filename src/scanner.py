@@ -4,6 +4,9 @@ from shutil import which
 import psutil
 import scapy
 from scapy.all import sniff, Packet
+from scapy.layers.inet import IP, TCP, UDP, ICMP
+from scapy.layers.inet6 import IPv6, ICMPv6ND_NS, ICMPv6ND_RA, ICMPv6ND_RS, ICMPv6MLReport2
+
 
 
 def check_nmap():
@@ -36,14 +39,30 @@ def analyze_packets(timeout=5):
 
     def packet_callback(packet: Packet):
         try:
-            src = packet["IP"].src if packet.haslayer("IP") else None
-            dst = packet["IP"].dst if packet.haslayer("IP") else None
+            # Detectar IPv4 ou IPv6
+            if packet.haslayer(IP):
+                src = packet[IP].src
+                dst = packet[IP].dst
+            elif packet.haslayer(IPv6):
+                src = packet[IPv6].src
+                dst = packet[IPv6].dst
+            else:
+                src = None
+                dst = None
 
-            if packet.haslayer("TCP"):
+            # Detectar protocolo
+            if packet.haslayer(TCP):
                 proto = "TCP"
-            elif packet.haslayer("UDP"):
+            elif packet.haslayer(UDP):
                 proto = "UDP"
-            elif packet.haslayer("ICMP"):
+            elif packet.haslayer(ICMP):
+                proto = "ICMP"
+            elif (
+                packet.haslayer(ICMPv6ND_NS)
+                or packet.haslayer(ICMPv6ND_RA)
+                or packet.haslayer(ICMPv6ND_RS)
+                or packet.haslayer(ICMPv6MLReport2)
+            ):
                 proto = "ICMP"
             else:
                 proto = packet.lastlayer().name if hasattr(packet, "lastlayer") else "DESCONHECIDO"
@@ -54,18 +73,17 @@ def analyze_packets(timeout=5):
                 "proto": proto,
                 "summary": packet.summary()
             })
+
         except Exception as e:
             pacotes.append({"summary": f"Erro ao processar pacote: {e}"})
 
     try:
         sniff(prn=packet_callback, timeout=timeout, store=0)
-        # retorna só os primeiros 100 para não sobrecarregar
         return pacotes[:100] if pacotes else [{"info": "Nenhum pacote capturado."}]
     except PermissionError:
         return [{"error": "Permissão negada: execute como administrador ou root."}]
     except Exception as e:
         return [{"error": f"Erro na captura: {str(e)}"}]
-
 
 def show_about():
     return {

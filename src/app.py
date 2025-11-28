@@ -79,7 +79,7 @@ TRAD_DNS = {
     "Address": "Endereço",
     "Non-authoritative answer": "Resposta não autoritativa",
     "Name": "Nome",
-    "Names"
+    "Names": "Nomes",
     "Address": "Endereço",
     "Addresses": "Endereços",
     "can't find": "não pode encontrar",

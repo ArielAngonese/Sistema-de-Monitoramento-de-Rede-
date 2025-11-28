@@ -24,111 +24,303 @@
   </header>
 
   <main class="content">
-    <!--Objetivo do Projeto -->
-    <section class="section">
-      <h2>Bem-vindo ao NetLab</h2>
-      <p>
-        O NetLab é uma plataforma interativa de cibersegurança aplicada, que integra monitoramento de desempenho, conectividade e segurança de sistemas e redes em uma interface única e didática. 
-        O usuário pode acompanhar o funcionamento do sistema local, analisar o tráfego de rede, realizar varreduras de portas, capturar pacotes e acessar ferramentas essenciais para diagnóstico e aprendizado.
-      </p>
-    </section>
+   <!--Objetivo do Projeto -->
+<section class="section">
+  <h2>Bem-vindo ao NetLab</h2>
+  <p>
+    O <strong>NetLab</strong> é uma plataforma interativa desenvolvida para aproximar o usuário dos principais
+    conceitos de <strong>redes de computadores</strong> e <strong>cibersegurança aplicada</strong>. Ele reúne, em um
+    único ambiente, ferramentas essenciais para monitoramento, diagnóstico e estudo prático de redes e sistemas.
+  </p>
 
-    <!--Boas Práticas e Ética-->
-    <section class="section">
-      <h2>Boas Práticas e Ética</h2>
-      <p>
-        Antes de executar capturas ou varreduras, confirme que você tem permissão para realizar testes na rede alvo. Mesmo em ambiente acadêmico, respeite as seguintes recomendações:
-      </p>
-      <ul>
-        <li>Execute testes apenas em redes sob seu controle ou com autorização explícita;</li>
-        <li>Evite exposição desnecessária de dados sensíveis — o NetLab apresenta apenas resumos para reduzir riscos;</li>
-        <li>Documente as ações e resultados para reprodução e análise ética.</li>
-      </ul>
-    </section>
+  <p>
+    A plataforma foi projetada com foco educacional, permitindo que estudantes, profissionais e entusiastas
+    explorem o funcionamento real de um sistema computacional: desde o uso de CPU e memória até a inspeção
+    de pacotes e serviços ativos. Com sua interface intuitiva e seus recursos em tempo real, o NetLab possibilita
+    compreender o comportamento do dispositivo, analisar o tráfego de rede, identificar vulnerabilidades e observar
+    como os componentes de um ambiente digital interagem entre si.
+  </p>
+
+  <p>
+    Entre as principais funcionalidades, o usuário pode:
+  </p>
+  <ul>
+    <li>Monitorar desempenho do sistema através de gráficos dinâmicos de CPU, memória e tráfego de rede;</li>
+    <li>Identificar portas abertas e serviços ativos por meio da varredura de portas integrada;</li>
+    <li>Capturar e visualizar pacotes para análise de protocolos e comportamento da rede;</li>
+    <li>Realizar testes práticos como ping, traceroute e consultas DNS;</li>
+    <li>Explorar a rede local, visualizando dispositivos conectados e possíveis pontos de exposição.</li>
+  </ul>
+
+  <p>
+    Assim, o NetLab funciona como um laboratório completo de experimentação em cibersegurança, oferecendo
+    tanto ferramentas práticas quanto explicações conceituais que ajudam a transformar observações em aprendizado.
+  </p>
+</section>
+
+
+<!--Boas Práticas e Ética-->
+<section class="section">
+  <h2>Boas Práticas e Ética</h2>
+  <p>
+    A utilização de ferramentas de análise, varredura e inspeção de rede exige responsabilidade e respeito às
+    normas éticas de cibersegurança. Embora o NetLab tenha caráter educacional, suas funcionalidades reproduzem
+    técnicas reais de auditoria e diagnóstico, que devem ser usadas sempre de forma consciente e autorizada.
+  </p>
+
+  <p>
+    Antes de executar qualquer teste, especialmente aqueles que envolvem captura de pacotes ou escaneamento de
+    portas, certifique-se de que:
+  </p>
+
+  <ul>
+    <li><strong>Você possui autorização explícita</strong> para realizar testes no sistema ou rede alvo;</li>
+    <li><strong>As ações não violam políticas de segurança</strong> da instituição, empresa ou ambiente acadêmico;</li>
+    <li><strong>Os dados analisados são tratados com cuidado</strong>, evitando a exposição de informações sensíveis
+        durante demonstrações ou atividades práticas;</li>
+    <li><strong>Os resultados obtidos são documentados</strong> com clareza, de modo que possam ser revisados,
+        reproduzidos e utilizados apenas para fins educacionais ou de melhoria da segurança;</li>
+    <li><strong>O escopo do teste é limitado</strong> ao necessário, evitando gerar tráfego excessivo, sobrecarga ou
+        qualquer tipo de impacto em dispositivos não relacionados ao estudo.</li>
+  </ul>
+
+  <p>
+    A prática ética em cibersegurança não é apenas um requisito legal, é uma base fundamental para formar
+    profissionais confiáveis, responsáveis e capazes de utilizar seus conhecimentos para fortalecer a proteção
+    digital, e não para explorá-la indevidamente.
+  </p>
+</section>
+
 
     <!--Portas e Protocolos -->
-    <section class="section">
-      <h2>Portas e Protocolos</h2>
-      <p>
-        Esta página detalha o funcionamento das portas de rede, sua classificação e os principais protocolos utilizados. 
-        O usuário pode visualizar as portas abertas e os serviços ativos, além de realizar:
-      </p>
-      <ul>
-        <li><strong>Varredura de Portas:</strong> Ferramenta prática para identificar portas vulneráveis e serviços expostos, auxiliando na análise de segurança.</li>
-      </ul>
-      <p>Ideal para quem deseja entender e proteger os pontos de entrada do sistema.</p>
-    </section>
+<section class="section">
+  <h2>Portas e Protocolos</h2>
+  <p>
+    Esta página apresenta uma visão aprofundada sobre o funcionamento das portas de rede, sua organização e 
+    sua importância dentro da comunicação entre dispositivos. O conteúdo aborda desde os conceitos básicos — como 
+    portas bem conhecidas, registradas e dinâmicas, até a relação entre serviços, números de porta e protocolos utilizados.
+  </p>
+
+  <p>
+    A interface permite visualizar <strong>quais portas estão abertas</strong> no sistema, os serviços associados a cada 
+    uma delas e como esses elementos compõem a superfície de ataque de um dispositivo conectado à rede. A partir dessas 
+    informações, o usuário pode compreender quais serviços estão ativos, quais aplicações estão escutando conexões externas 
+    e como isso afeta a segurança e o comportamento do host.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Varredura de Portas:</strong> ferramenta prática que utiliza técnicas como TCP Connect Scan para identificar 
+      portas abertas, fechadas ou filtradas, revelando serviços expostos e potenciais vulnerabilidades.
+    </li>
+    <li>
+      <strong>Identificação de Serviços:</strong> permite associar cada porta aos respectivos protocolos (como HTTP, DNS, SMB, SSH), 
+      facilitando o entendimento do tráfego esperado e da função de cada serviço.
+    </li>
+    <li>
+      <strong>Análise de Acesso:</strong> auxilia na avaliação de configurações de firewall, políticas de segurança e práticas de 
+      hardening, evidenciando portas que não deveriam estar acessíveis.
+    </li>
+  </ul>
+
+  <p>
+    Esta página é essencial para quem deseja compreender e proteger os pontos de entrada do sistema, oferecendo uma visão clara 
+    da comunicação entre processos e dispositivos. Ela serve tanto como ferramenta educacional quanto como recurso de análise 
+    em auditorias de segurança e diagnóstico de redes.
+  </p>
+</section>
 
     <!--Dispositivos Conectados -->
-    <section class="section">
-      <h2>Dispositivos Conectados</h2>
-      <p>
-        Permite listar todos os hosts conectados à rede e visualizar a topologia do ambiente. 
-        A ferramenta prática utilizada é:
-      </p>
-      <ul>
-        <li><strong>Scanner de Rede:</strong> Mapeia dispositivos ativos, identifica IPs e nomes de host, facilitando o gerenciamento e a detecção de intrusos.</li>
-      </ul>
-      <p>Fundamental para manter o controle e a segurança da rede local.</p>
-    </section>
+<section class="section">
+  <h2>Dispositivos Conectados</h2>
 
-    <!--Ferramentas -->
-    <section class="section">
-      <h2>Ferramentas</h2>
-      <p>Reúne utilitários para diagnóstico de rede, como:</p>
-      <ul>
-        <li><strong>Ping:</strong> Testa a conectividade entre dispositivos.</li>
-        <li><strong>DNS Lookup:</strong> Verifica resolução de nomes de domínio.</li>
-        <li><strong>Traceroute:</strong> Analisa o caminho dos pacotes até o destino.</li>
-      </ul>
-      <p>Essas ferramentas ajudam a identificar e solucionar problemas de comunicação e desempenho.</p>
-    </section>
+  <p>
+    Esta página apresenta uma visão completa dos <strong>dispositivos ativos na rede local</strong>, permitindo identificar
+    todos os hosts que estão respondendo a solicitações de varredura. O objetivo é demonstrar como ferramentas de
+    descoberta de rede realizam a detecção de equipamentos, revelando a topologia básica do ambiente e facilitando
+    o entendimento das conexões existentes.
+  </p>
 
-    <!--Aprendizado -->
-    <section class="section">
-      <h2>Aprendizado</h2>
-      <p>
-        Oferece conteúdo didático sobre redes, protocolos, segurança e boas práticas. 
-        O usuário pode acessar:
-      </p>
-      <ul>
-        <li><strong>Guias e Tutoriais:</strong> Explicações detalhadas para aprimorar o conhecimento técnico.</li>
-        <li><strong>Exemplos Práticos:</strong> Demonstrações de uso das ferramentas e conceitos.</li>
-      </ul>
-      <p>Ideal para estudantes e profissionais que desejam aprofundar seus conhecimentos.</p>
-    </section>
+  <p>
+    A análise dos dispositivos conectados é essencial tanto para o gerenciamento de redes quanto para a segurança da
+    informação: saber exatamente quais equipamentos estão ativos ajuda a identificar máquinas desconhecidas, detectar
+    possíveis intrusos e reconhecer padrões anômalos de comportamento na infraestrutura.
+  </p>
 
-    <!--Relatórios -->
-    <section class="section">
-      <h2>Relatórios</h2>
-      <p>
-        Centraliza os logs de varreduras, pacotes capturados e alertas recentes. 
-        A ferramenta prática permite:
-      </p>
-      <ul>
-        <li><strong>Visualização de Logs:</strong> Acompanhe o histórico de eventos, ações e resultados das análises realizadas no sistema.</li>
-      </ul>
-      <p>Essencial para auditoria, acompanhamento e melhoria contínua do ambiente monitorado.</p>
-    </section>
+  <ul>
+    <li>
+      <strong>Scanner de Rede:</strong> utiliza técnicas de descoberta (como ping scan e ARP scan) para mapear todos os
+      hosts ativos, identificando endereços IP, nomes de host e informações adicionais quando disponíveis. Essa etapa
+      permite visualizar a estrutura da rede e os dispositivos que fazem parte dela.
+    </li>
+
+    <li>
+      <strong>Identificação de Atividade:</strong> ao reconhecer quais hosts estão respondendo, é possível distinguir
+      dispositivos legítimos (como computadores, celulares, impressoras e roteadores) de máquinas suspeitas que surgem
+      repentinamente na rede.
+    </li>
+
+    <li>
+      <strong>Auxílio no Gerenciamento e Segurança:</strong> a listagem de dispositivos é uma ferramenta fundamental
+      para administradores que precisam monitorar acessos, verificar o cumprimento de políticas de segurança e manter
+      controle sobre quais equipamentos têm permissão para operar na rede.
+    </li>
+  </ul>
+
+  <p>
+    A visibilidade proporcionada por esta página é crucial para manter a rede organizada e segura, garantindo que apenas
+    dispositivos autorizados estejam conectados e permitindo que o usuário compreenda a estrutura do ambiente em que atua.
+  </p>
+</section>
+
+    <!-- Segurança e Detecção -->
+<section class="section">
+  <h2>Segurança e Detecção</h2>
+
+  <p>
+    Esta página apresenta os fundamentos da <strong>detecção de ameaças</strong> em redes de computadores, permitindo
+    acompanhar em tempo real o tráfego capturado e compreender como sistemas de monitoração analisam pacotes,
+    identificam comportamentos anômalos e geram alertas de segurança.
+  </p>
+
+  <p>
+    A ferramenta utiliza técnicas semelhantes às encontradas em Sistemas de Detecção de Intrusões (IDS), como análise de cabeçalhos,
+    contagem de pacotes, identificação de padrões suspeitos e correlação de eventos simples. 
+    Embora adotando regras de caráter didático, a página demonstra claramente como comportamentos maliciosos podem ser
+    identificados por meio da observação do fluxo de dados.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Captura de Pacotes:</strong> coleta tráfego em tempo real utilizando técnicas de sniffing, 
+      permitindo visualizar pacotes TCP, UDP, ICMP, ICMPv6 e outros protocolos detectados na camada de rede.
+      Essa captura evidencia como informações circulam entre dispositivos e como ataques deixam rastros perceptíveis.
+    </li>
+
+    <li>
+      <strong>Análise de Tráfego:</strong> interpreta os pacotes capturados, identifica endereços IP de origem,
+      destinos, protocolos utilizados e possíveis padrões indicativos de varreduras, excessos de pacotes ou
+      comportamentos atípicos.
+    </li>
+
+    <li>
+      <strong>Regras de Detecção:</strong> aplica verificações simples como contagem de pacotes por IP, 
+      excesso de solicitações ICMP, tentativas repetidas de conexão ou múltiplos pacotes direcionados em intervalo curto,
+      simulando mecanismos reais de detecção de ameaças.
+    </li>
+
+    <li>
+      <strong>Simulação de Ataques:</strong> oferece um modo de demonstração para simular um ataque DDoS, 
+      exibindo como alertas seriam acionados em um cenário real e permitindo que o usuário visualize a resposta do sistema.
+    </li>
+  </ul>
+
+  <p>
+    Esta página é fundamental para compreender como sistemas de segurança identificam anomalias em redes de computadores. 
+    Ao visualizar o tráfego capturado e comparar comportamentos normais com situações suspeitas, o usuário desenvolve 
+    uma visão prática dos mecanismos de monitoramento, reforçando conceitos como análise de pacotes, reconhecimento de 
+    padrões de ataque e importância do monitoramento contínuo em ambientes computacionais modernos.
+  </p>
+</section>
+
+    <!-- Ferramentas de Diagnóstico de Rede -->
+<section class="section">
+  <h2>Diagnóstico de Rede</h2>
+
+  <p>
+    A página <strong>Tools</strong> reúne um conjunto de utilitários essenciais para diagnósticos de rede,
+    permitindo ao usuário testar conectividade, mapear rotas e consultar informações de resolução de nomes.
+    Essas ferramentas representam operações rotineiras realizadas por administradores de sistemas, analistas
+    de suporte e profissionais de cibersegurança ao investigar falhas, lentidão ou indisponibilidade de serviços.
+  </p>
+
+  <p>
+    Cada funcionalidade oferece uma abordagem complementar para compreender o comportamento da rede,
+    auxiliando na identificação de gargalos, inconsistências de configuração e problemas de comunicação.
+    A interface integrada facilita a execução dos testes e a interpretação dos resultados, tornando o processo
+    mais didático e acessível para estudos e práticas de laboratório.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Ping:</strong> mede a conectividade e latência entre o host local e um destino,
+      verificando se o alvo responde e em quanto tempo. É utilizado para diagnosticar perda de pacotes,
+      instabilidade ou indisponibilidade de serviços.
+    </li>
+
+    <li>
+      <strong>Traceroute:</strong> rastreia o caminho percorrido pelos pacotes até o destino,
+      exibindo cada roteador intermediário e o tempo de resposta de cada salto. Útil para detectar
+      rotas incorretas, congestionamento ou falhas em pontos específicos da rede.
+    </li>
+
+    <li>
+      <strong>DNS Lookup:</strong> consulta servidores DNS para descobrir o endereço IP associado a um domínio,
+      permitindo validar o funcionamento do sistema de resolução de nomes e identificar problemas
+      como registros mal configurados ou falhas de comunicação com servidores DNS.
+    </li>
+  </ul>
+
+  <p>
+    Esta página é fundamental para o processo de diagnóstico, pois cobre desde testes básicos de 
+    acessibilidade até a análise detalhada do caminho de comunicação e da resolução de nomes. 
+    Em conjunto, essas ferramentas permitem compreender a infraestrutura de rede de forma prática 
+    e aprofundada, fornecendo suporte direto para troubleshooting e investigação de incidentes.
+  </p>
+</section>
 
     <!--Dashboard -->
-    <section class="section">
-      <h2>Dashboard</h2>
-      <p>
-        O Dashboard é o centro de monitoramento do sistema. 
-        Ele exibe gráficos em tempo real do uso de CPU, memória e tráfego de rede, permitindo identificar rapidamente sobrecargas e gargalos. 
-        As ferramentas práticas disponíveis nesta página incluem:
-      </p>
-      <ul>
-        <li><strong>Varredura de Portas:</strong> Utiliza scanner de portas para identificar serviços ativos e potenciais vulnerabilidades.</li>
-        <li><strong>Análise de Pacotes:</strong> Captura e exibe pacotes de rede para inspeção de tráfego e diagnóstico de problemas.</li>
-      </ul>
-      <p>Essas ferramentas são essenciais para avaliar o desempenho e a segurança do sistema local.</p>
-    </section>
+<section class="section">
+  <h2>Dashboard</h2>
+
+  <p>
+    O <strong>Dashboard</strong> é o núcleo de monitoramento em tempo real da plataforma, reunindo em um único
+    ambiente as principais métricas de desempenho e as ferramentas essenciais para análise do estado atual do
+    sistema e da rede. Ele permite ao usuário acompanhar, de forma intuitiva e visual, o comportamento do
+    processador, da memória e do tráfego de dados, além de executar testes diretos de varredura e inspeção.
+  </p>
+
+  <p>
+    Por meio de gráficos dinâmicos e controles interativos, o Dashboard possibilita a identificação imediata de
+    sobrecargas, anomalias operacionais, picos inesperados de tráfego e comportamentos que possam indicar
+    problemas de desempenho ou potenciais ameaças. É uma área fundamental para quem precisa compreender o
+    funcionamento do dispositivo em tempo real.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Uso de CPU:</strong> gráfico que exibe a taxa de utilização do processador, permitindo identificar
+      tarefas intensivas, picos de carga e possíveis gargalos.
+    </li>
+    <li>
+      <strong>Uso de Memória:</strong> monitora o consumo de RAM, facilitando a detecção de aplicações que 
+      consomem recursos excessivos ou de situações de saturação.
+    </li>
+    <li>
+      <strong>Tráfego de Rede:</strong> apresenta a taxa de envio e recepção de dados (KB/s), ajudando a observar
+      padrões de comunicação, picos de atividade e indícios de tráfego incomum.
+    </li>
+    <li>
+      <strong>Varredura de Portas:</strong> permite verificar quais portas estão abertas e identificar serviços
+      ativos, contribuindo para análises de segurança e diagnóstico de rede.
+    </li>
+    <li>
+      <strong>Análise de Pacotes:</strong> captura pacotes por alguns segundos e exibe seus detalhes, oferecendo
+      uma visão prática do tráfego que circula pela interface de rede.
+    </li>
+  </ul>
+
+  <p>
+    De forma integrada, essas ferramentas possibilitam ao usuário obter uma compreensão ampla e imediata do
+    estado do sistema. Isso torna o Dashboard um ambiente essencial para monitoramento contínuo, detecção de
+    falhas, análise de desempenho e observação aprofundada do comportamento da rede.
+  </p>
+</section>
+
   </main>
 
   <footer>
-    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese, Emanuel Júlio Solivo e Vítor Luis Andreolla</p>
+    <p>NetLab — Plataforma Interativa de Cibersegurança Aplicada | Ariel Liotto Angonese e Emanuel Júlio Solivo</p>
   </footer>
 </body>
 </html>

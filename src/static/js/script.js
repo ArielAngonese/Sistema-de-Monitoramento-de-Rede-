@@ -212,16 +212,36 @@ async function runScan() {
 }
 
 async function capturePackets() {
-    elPacketResult.textContent = "Capturando pacotes por 10 segundos...";
+    const out = document.getElementById("packetResult");
+    out.innerHTML = "Capturando pacotes...\n";
+
     try {
-        const resp = await fetch('/packets');
+        const resp = await fetch("/packets");
         const data = await resp.json();
-        elPacketResult.textContent = data.packets && data.packets.length ? data.packets.join("\n") : "Nenhum pacote capturado.";
+
+        out.innerHTML = ""; // limpar
+
+        data.packets.forEach(p => {
+            const summary = p.summary || JSON.stringify(p);
+
+            // cor conforme o protocolo
+            let color = "black";
+
+            if (p.proto === "TCP") color = "#2d6cdf";           
+            else if (p.proto === "UDP") color = "#aa2dfd";      
+            else if (p.proto === "ICMP") color = "#1ebd4f";     
+            else if (summary.includes("DNS")) color = "#e68a00"; 
+
+            const linha = `<span style="color:${color}">${summary}</span><br>`;
+            out.innerHTML += linha;
+        });
+
     } catch (err) {
-        elPacketResult.textContent = 'Erro ao capturar pacotes.';
-        console.error(err);
+        out.innerHTML = "Erro ao capturar pacotes: " + err;
     }
 }
+
+
 
 // ===============================
 //  Ferramentas — Tools Page
